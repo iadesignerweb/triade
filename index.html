@@ -1,148 +1,237 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plínio Studio</title>
-  <meta name="theme-color" content="#6C4BBE">
-  <meta name="description" content="Soluções criativas em design, IA, automações, audiovisual e muito mais.">
-  <meta property="og:title" content="Plínio Studio">
-  <meta property="og:description" content="Transformamos sua ideia.">
-  <meta property="og:image" content="https://raw.githubusercontent.com/iadesignerweb/site/refs/heads/main/Plinio%20Fabricio%2C%20%20Instagram%2C%20Plinio%20Studio.PNG">
-  <link rel="icon" href="https://raw.githubusercontent.com/iadesignerweb/site/refs/heads/main/file_000000006f3861f88e745af94277ef55.png">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: "Segoe UI", sans-serif; background: #f7f7f7; color: #333; transition: background 0.3s, color 0.3s; }
-    body.dark-mode { background: #121212; color: #f1f1f1; }
-    header { background: #2d174a; color: white; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; }
-    header img.logo { height: 50px; border-radius: 6px; }
-    nav a { color: white; margin-left: 20px; text-decoration: none; font-weight: 500; }
-    .toggle-dark { background: transparent; color: white; border: 1px solid white; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
-    .hero { background: linear-gradient(120deg, #6C4BBE, #9C7DF2); color: white; padding: 60px 20px; text-align: center; }
-    .hero h1 span { border-right: 2px solid white; white-space: nowrap; overflow: hidden; }
-    .services, .contact { padding: 40px 20px; max-width: 1000px; margin: auto; }
-    .services h2, .contact h2 { text-align: center; margin-bottom: 30px; }
-    .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    /* Changed the .service styling to ensure the whole area is clickable for <a> tags */
-    .service { background: white; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.05); padding: 20px; text-align: center; cursor: pointer; transition: all 0.3s; text-decoration: none; color: inherit; display: block; }
-    .service:hover { background: #f0f0f0; }
-    body.dark-mode .service { background: #1e1e1e; }
-    .service-description { display: none; margin-top: 10px; font-size: 0.9rem; color: #555; }
-    body.dark-mode .service-description { color: #ccc; }
-    form input, form textarea { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
-    form button { background: #6C4BBE; color: white; padding: 12px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-    footer { background: #2d174a; color: #fff; text-align: center; padding: 15px; font-size: 14px; }
-    .whatsapp-button { position: fixed; bottom: 20px; right: 20px; background-color: #25d366; color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; font-size: 30px; text-decoration: none; box-shadow: 0 2px 10px rgba(0,0,0,0.3); z-index: 1000; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Escola Tríade | Inovação Audiovisual</title>
+    <meta name="theme-color" content="#050505">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: #050505;
+            color: #f0f0f0;
+            font-family: 'Inter', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: 80px; 
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header { margin-bottom: 40px; }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #ffffff 0%, #777777 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .subtitle { color: #666; font-size: 0.95rem; }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 1px solid #222;
+            margin-bottom: 50px;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
+
+        .card-grid { display: flex; flex-direction: column; gap: 24px; }
+
+        .card {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            background: #0f0f0f;
+            border: 1px solid #1f1f1f;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover { border-color: #00ffb3; transform: translateY(-5px); }
+
+        .card-img { width: 100%; height: 100%; overflow: hidden; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; }
+
+        .card-content { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
+        .card-content h2 { font-size: 1.5rem; color: #fff; margin-bottom: 10px; }
+        .card-content p { font-size: 0.95rem; color: #888; margin-bottom: 24px; }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ffb3;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            border: 1px solid #00ffb3;
+            padding: 12px 24px;
+            border-radius: 8px;
+            width: fit-content;
+        }
+
+        footer { text-align: center; padding-top: 60px; color: #444; font-size: 0.85rem; }
+
+        @media (max-width: 768px) {
+            .card { grid-template-columns: 1fr; grid-template-rows: 200px auto; }
+            .btn-action { width: 100%; }
+        }
+    </style>
 </head>
 <body>
-<header>
-  <a href="#"><img src="" class="" /></a>
-  <nav>
-    <a href="#servicos">Serviços</a>
-    <a href="#contato">Contato</a>
-    <button class="toggle-dark" onclick="toggleDarkMode()">🌙</button>
-  </nav>
-</header>
-<section class="hero">
-  <h1><span id="typing"></span></h1>
-  <p>Especialistas em design, audiovisual, inteligência artificial e automações para criadores de conteúdo e empresas.</p>
-</section>
-<section class="services" id="servicos">
-  <h2 data-aos="fade-up">Serviços</h2>
-  <div class="service-grid">
-    <a https://wa.me/5587996029765
-      🔧 Plataforma Para Escolas - EAD
-      <div class="service-description">Ferramenta estratégica para thumbnails, títulos, SEO e tags do seu vídeo.</div>
-    </a>
-    <div class="service" onclick="toggleDescription(this)" data-aos="zoom-in">
-      🎨 Logomarcas Profissionais
-      <div class="service-description">Criação de logomarcas únicas, modernas e com identidade visual forte para sua marca.</div>
-    </div>
-    <!-- MODIFIED: Changed div to a tag and added href for "Criação de Sites Responsivos" -->
-    <a href="https://iadesignerweb.github.io/free/" class="service" data-aos="zoom-in">
-      🌐 Criação de Sites Responsivos
-      <div class="service-description">Sites bonitos, rápidos e que se adaptam a qualquer dispositivo, prontos para destacar sua presença online.</div>
-    </a>
-    <!-- MODIFIED: Changed div to a tag, added href, and corrected typo in class name for "Edição Áudiovisual Premium" -->
-    <a href="https://youtube.com/@pliniofabricio_" class="service" data-aos="zoom-in">
-      🎬 Edição Áudiovisual Premium
-      <div class="service-description">Edição profissional de vídeos para YouTube, redes sociais, comerciais e projetos especiais.</div>
-    </a>
-    <div class="service" onclick="toggleDescription(this)" data-aos="zoom-in">
-      📺 Criação de Canais YouTube
-      <div class="service-description">Auxiliamos desde a identidade do canal até roteiros, capas, vídeos e estratégias de crescimento.</div>
-    </div>
-    <div class="service" onclick="toggleDescription(this)" data-aos="zoom-in">
-      🤖 Chatbots para WhatsApp e Telegram
-      <div class="service-description">Automatize atendimentos, vendas e suporte com chatbots inteligentes e personalizados.</div>
-    </div>
-    <div class="service" onclick="toggleDescription(this)" data-aos="zoom-in">
-      🎓 Cursos sobre Inteligência Artificial
-      <div class="service-description">Aprenda IA aplicada de forma prática: chatbots, automações, criação de conteúdo e muito mais.</div>
-    </div>
-    <div class="service" onclick="toggleDescription(this)" data-aos="zoom-in">
-      📘 E-books Personalizados
-      <div class="service-description">Produção de e-books com design profissional, diagramação e conteúdos sob medida.</div>
-    </div>
-    <div class="service" onclick="toggleDescription(this)" data-aos="zoom-in">
-      🔊 Áudiobooks Profissionais
-      <div class="service-description">Gravação de áudiobooks com voz profissional, trilhas e qualidade de estúdio.</div>
-    </div>
-    
-    <!-- NOVO SERVIÇO ADICIONADO E AGORA LINKADO DIRETAMENTE AO APK -->
-    <a href="https://www.mediafire.com/file/1si7jjsigayv0tv/Delivery_PStudio.apk/file" class="service" data-aos="zoom-in" target="_blank">
-      📦 Teste App - Delivery
-      <div class="service-description">Clique aqui para baixar e testar nosso aplicativo de delivery.</div>
-    </a>
-    <!-- FIM DO NOVO SERVIÇO -->
 
-  </div>
-</section>
-<section class="contact" id="contato">
-  <h2 data-aos="fade-up">Fale Conosco</h2>
-  <form id="whatsappForm">
-    <input type="text" name="nome" id="nome" placeholder="Seu nome" required />
-    <input type="email" name="email" id="email" placeholder="Seu e-mail" required />
-    <textarea name="mensagem" id="mensagem" rows="5" placeholder="Sua mensagem" required></textarea>
-    <button type="submit">Enviar Mensagem</button>
-  </form>
-</section>
-<footer>
-  © 2025 - Direitos Reservados - Plínio Studio
-</footer>
-<a href="https://wa.me/5587999786261" class="whatsapp-button" target="_blank">💬</a>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-  function toggleDescription(element) {
-    const desc = element.querySelector('.service-description');
-    const isVisible = desc.style.display === 'block';
-    // Hide all other descriptions before showing the clicked one
-    document.querySelectorAll('.service-description').forEach(d => d.style.display = 'none');
-    desc.style.display = isVisible ? 'none' : 'block';
-  }
-  function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-  }
-  document.getElementById('whatsappForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const nome = document.getElementById('nome').value;
-    const email = document.getElementById('email').value;
-    const mensagem = document.getElementById('mensagem').value;
-    const texto = `Olá, me chamo ${nome}.%0AEmail: ${email}%0A${mensagem}`;
-    const url = `https://wa.me/5587999786261?text=${texto}`;
-    window.open(url, '_blank');
-  });
-  const text = 'Transformamos sua ideia';
-  let index = 0;
-  function type() {
-    document.getElementById('typing').textContent = text.slice(0, index);
-    index = index < text.length ? index + 1 : 0;
-    setTimeout(type, 150);
-  }
-  type();
-</script>
+    <div class="container">
+        <header>
+            <h1>Escola Tríade</h1>
+            <p class="subtitle">Inovação Audiovisual e Mentorias</p>
+        </header>
+
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/VHMTkDUReKY" allowfullscreen></iframe>
+        </div>
+
+        <div class="card-grid">
+            <div class="card js-link" data-tipo="curso" data-titulo="Agenda de IA">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80">
+                </div>
+                <div class="card-content">
+                    <h2>Agenda de IA</h2>
+                    <p>Início em 10/05. Acesso às salas individuais por aluno.</p>
+                    <span class="btn-action">Acessar Agenda</span>
+                </div>
+            </div>
+
+            <div class="card js-link" data-tipo="mentoria" data-titulo="Área de Mentoria">
+                <div class="card-img">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305_1280.jpg">
+                </div>
+                <div class="card-content">
+                    <h2>Mentoria</h2>
+                    <p>Espaço reservado para acompanhamento individual.</p>
+                    <span class="btn-action">Acessar Mentoria</span>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Copyright Plínio Studio</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.js-link').forEach(card => {
+            card.addEventListener('click', () => {
+                let senha = prompt("Insira a senha de acesso:");
+                if (senha === "2031") {
+                    abrirPlataforma(card.getAttribute('data-tipo'), card.getAttribute('data-titulo'));
+                } else if (senha !== null) {
+                    alert("Acesso negado.");
+                }
+            });
+        });
+
+        function abrirPlataforma(tipo, titulo) {
+            const janela = window.open('', '_blank');
+            
+            // DADOS DO CURSO DE IA (COM DATAS NAS OBSERVAÇÕES)
+            const alunosIA = [
+                { nome: "Alexandre pé de serra", obs: "Segunda e Quarta-feira às 10:00h. Início 10/05." },
+                { nome: "Wilma Duarte", obs: "Sexta-feira e Sábado às 20:00h. Início 10/05." },
+                { nome: "Eli (mãe de Gael)", obs: "Sexta-feira e Sábado às 20:00h. Início 10/05." },
+                { nome: "Maurina e Anikelly", obs: "Terça e Quinta-feira. Início 10/05." },
+                { nome: "Scheila e Samantha", obs: "Terça e Quinta-feira. Início 10/05." },
+                { nome: "Izabel e Sophia", obs: "Sábado às 20:00h e Domingo às 09:00h. Início 10/05." },
+                { nome: "Maria Eduarda", obs: "Sábado às 20:00h e Domingo às 09:00h. Início 10/05." },
+                { nome: "Deo Garcez", obs: "Domingo às 09:00h. Início 10/05." },
+                { nome: "Marta", obs: "Domingo às 08:00h. Início 10/05." }
+            ];
+
+            // DADOS DA MENTORIA (ESPAÇO EM BRANCO)
+            const alunosMentoria = ["Wilma Duarte", "Eli (mãe de Gael)", "Maurina", "Anikelly", "Scheila", "Samantha", "Izabel", "Sophia", "Maria Eduarda", "Deo Garcez", "Marta", "Alexandre pé de serra"];
+
+            let corpoHtml = '<div class="dias-grid">';
+            
+            if (tipo === 'curso') {
+                alunosIA.forEach(item => {
+                    corpoHtml += `
+                    <div class="dia-card">
+                        <div class="info-row" style="font-size:1.1rem; color:#fff;"><strong>Aluno(a):</strong> ${item.nome}</div>
+                        <div class="info-row"><strong>Observações:</strong> ${item.obs}</div>
+                        <a href="#" target="_blank" class="btn-meet">Entrar na Sala do Meet</a>
+                    </div>`;
+                });
+            } else {
+                alunosMentoria.forEach(aluno => {
+                    corpoHtml += `
+                    <div class="dia-card">
+                        <div class="info-row" style="font-size:1.1rem; color:#fff;"><strong>Aluno(a):</strong> ${aluno}</div>
+                        <div class="info-row"><em>Espaço reservado para observações da mentoria...</em></div>
+                        <a href="#" target="_blank" class="btn-meet">Abrir Sala do Meet</a>
+                    </div>`;
+                });
+            }
+            corpoHtml += '</div>';
+
+            const htmlFinal = `
+                <!DOCTYPE html>
+                <html lang="pt-BR">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                    <title>${titulo}</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+                    <style>
+                        body { background-color: #050505; color: #f0f0f0; font-family: 'Inter', sans-serif; padding: 15px; margin: 0; display: flex; flex-direction: column; align-items: center; }
+                        .ead-container { width: 100%; max-width: 500px; }
+                        h1 { color: #00ffb3; font-size: 1.2rem; text-align: center; margin: 20px 0; text-transform: uppercase; letter-spacing: 1px; }
+                        .dias-grid { display: flex; flex-direction: column; gap: 14px; }
+                        .dia-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-left: 4px solid #00ffb3; }
+                        .info-row { font-size: 0.95rem; color: #888; line-height: 1.4; }
+                        .info-row strong { color: #00ffb3; }
+                        .btn-meet { background-color: #00ffb3; color: #000; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: 700; text-align: center; margin-top: 10px; font-size: 0.9rem; text-transform: uppercase; }
+                        footer { margin-top: 40px; padding: 20px; color: #444; font-size: 0.75rem; text-align: center; border-top: 1px solid #222; width: 100%; }
+                    </style>
+                </head>
+                <body>
+                    <div class="ead-container">
+                        <h1>${titulo}</h1>
+                        ${corpoHtml}
+                        <footer>Copyright Plínio Studio</footer>
+                    </div>
+                </body>
+                </html>`;
+
+            janela.document.write(htmlFinal);
+            janela.document.close();
+        }
+    </script>
 </body>
 </html>

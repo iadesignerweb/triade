@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Escola Tríade | Inovação Audiovisual</title>
+    <title>Plínio Studio | Inovação Audiovisual</title>
     <meta name="theme-color" content="#050505">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -139,6 +139,17 @@
                     <span class="btn-action">Acessar Mentoria</span>
                 </div>
             </div>
+
+            <div class="card js-link" data-tipo="gerador" data-titulo="Gerador de Imagens IA">
+                <div class="card-img">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80">
+                </div>
+                <div class="card-content">
+                    <h2>Gerador de Imagens</h2>
+                    <p>Ferramenta exclusiva para criação de artes via Inteligência Artificial.</p>
+                    <span class="btn-action">Abrir Gerador</span>
+                </div>
+            </div>
         </div>
         
         <footer>
@@ -149,11 +160,23 @@
     <script>
         document.querySelectorAll('.js-link').forEach(card => {
             card.addEventListener('click', () => {
-                let senha = prompt("Insira a senha de acesso:");
-                if (senha === "2031") {
-                    abrirPlataforma(card.getAttribute('data-tipo'), card.getAttribute('data-titulo'));
-                } else if (senha !== null) {
-                    alert("Acesso negado.");
+                const tipo = card.getAttribute('data-tipo');
+                
+                // Define qual senha pedir baseado no card
+                if (tipo === "gerador") {
+                    let senhaGerador = prompt("Área Restrita: Gerador de Imagens.\nInsira a senha de acesso:");
+                    if (senhaGerador === "Matrix") {
+                        window.open('https://iadesignerweb.github.io/imagem-gerador/', '_blank');
+                    } else if (senhaGerador !== null) {
+                        alert("Senha incorreta.");
+                    }
+                } else {
+                    let senhaPadrao = prompt("Insira a senha de acesso:");
+                    if (senhaPadrao === "2031") {
+                        abrirPlataforma(tipo, card.getAttribute('data-titulo'));
+                    } else if (senhaPadrao !== null) {
+                        alert("Acesso negado.");
+                    }
                 }
             });
         });
@@ -161,7 +184,6 @@
         function abrirPlataforma(tipo, titulo) {
             const janela = window.open('', '_blank');
             
-            // DADOS DO CURSO DE IA (COM DATAS NAS OBSERVAÇÕES)
             const alunosIA = [
                 { nome: "Alexandre pé de serra", obs: "Segunda e Quarta-feira às 10:00h. Início 10/05." },
                 { nome: "Wilma Duarte", obs: "Sexta-feira e Sábado às 20:00h. Início 10/05." },
@@ -174,7 +196,6 @@
                 { nome: "Marta", obs: "Domingo às 08:00h. Início 10/05." }
             ];
 
-            // DADOS DA MENTORIA (ESPAÇO EM BRANCO)
             const alunosMentoria = ["Wilma Duarte", "Eli (mãe de Gael)", "Maurina", "Anikelly", "Scheila", "Samantha", "Izabel", "Sophia", "Maria Eduarda", "Deo Garcez", "Marta", "Alexandre pé de serra"];
 
             let corpoHtml = '<div class="dias-grid">';
@@ -214,7 +235,7 @@
                         h1 { color: #00ffb3; font-size: 1.2rem; text-align: center; margin: 20px 0; text-transform: uppercase; letter-spacing: 1px; }
                         .dias-grid { display: flex; flex-direction: column; gap: 14px; }
                         .dia-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-left: 4px solid #00ffb3; }
-                        .info-row { font-size: 0.95rem; color: #888; line-height: 1.4; }
+                        .info-row { font-size: 0.95rem; color: #888; }
                         .info-row strong { color: #00ffb3; }
                         .btn-meet { background-color: #00ffb3; color: #000; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: 700; text-align: center; margin-top: 10px; font-size: 0.9rem; text-transform: uppercase; }
                         footer { margin-top: 40px; padding: 20px; color: #444; font-size: 0.75rem; text-align: center; border-top: 1px solid #222; width: 100%; }
@@ -235,3 +256,4 @@
     </script>
 </body>
 </html>
+

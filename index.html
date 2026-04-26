@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -28,88 +28,124 @@
             padding: 40px 20px;
         }
 
-        header { margin-bottom: 40px; }
-
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #ffffff 0%, #777777 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-        }
-
-        .subtitle { color: #666; font-size: 0.95rem; }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            background: #111;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            border: 1px solid #222;
-            margin-bottom: 50px;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: none;
-        }
-
-        .card-grid { display: flex; flex-direction: column; gap: 24px; }
-
-        .card {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            background: #0f0f0f;
-            border: 1px solid #1f1f1f;
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
+        /* --- MENU HAMBÚRGUER --- */
+        .menu-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
             cursor: pointer;
+            background: #0f0f0f;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #1f1f1f;
         }
 
+        .menu-icon div {
+            width: 25px;
+            height: 3px;
+            background-color: #00ffb3;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 250px;
+            height: 100%;
+            background: #0f0f0f;
+            z-index: 1000;
+            transition: 0.5s;
+            padding-top: 80px;
+            border-left: 1px solid #1f1f1f;
+        }
+
+        .nav-menu.active { right: 0; }
+
+        .nav-menu a {
+            display: block;
+            padding: 15px 25px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid #1f1f1f;
+            transition: 0.3s;
+        }
+
+        .nav-menu a:hover { background: #1f1f1f; color: #00ffb3; }
+
+        /* --- HEADER --- */
+        header { margin-bottom: 40px; text-align: center; }
+        h1 { font-size: 2.2rem; font-weight: 800; text-transform: uppercase; color: #fff; margin-bottom: 8px; }
+        .subtitle { color: #00ffb3; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;}
+
+        /* --- VÍDEO --- */
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0; background: #111;
+            border-radius: 20px; overflow: hidden; border: 1px solid #1f1f1f; margin-bottom: 50px;
+        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        /* --- CARDS --- */
+        .card-grid { display: flex; flex-direction: column; gap: 24px; }
+        .card {
+            display: grid; grid-template-columns: 260px 1fr; background: #0f0f0f;
+            border: 1px solid #1f1f1f; border-radius: 16px; overflow: hidden; transition: 0.3s; cursor: pointer;
+        }
         .card:hover { border-color: #00ffb3; transform: translateY(-5px); }
-
-        .card-img { width: 100%; height: 100%; overflow: hidden; }
-        .card-img img { width: 100%; height: 100%; object-fit: cover; }
-
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .card:hover .card-img img { transform: scale(1.05); }
         .card-content { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
         .card-content h2 { font-size: 1.5rem; color: #fff; margin-bottom: 10px; }
         .card-content p { font-size: 0.95rem; color: #888; margin-bottom: 24px; }
-
         .btn-action {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #00ffb3;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            border: 1px solid #00ffb3;
-            padding: 12px 24px;
-            border-radius: 8px;
-            width: fit-content;
+            display: inline-flex; align-items: center; justify-content: center; color: #00ffb3;
+            font-weight: 700; font-size: 0.8rem; text-transform: uppercase; border: 1px solid #00ffb3;
+            padding: 12px 24px; border-radius: 8px; transition: 0.3s;
         }
+        .card:hover .btn-action { background-color: #00ffb3; color: #050505; }
 
-        footer { text-align: center; padding-top: 60px; color: #444; font-size: 0.85rem; }
-
-        @media (max-width: 768px) {
-            .card { grid-template-columns: 1fr; grid-template-rows: 200px auto; }
-            .btn-action { width: 100%; }
+        /* --- MODAL --- */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000;
+            justify-content: center; align-items: center; opacity: 0; transition: 0.3s;
         }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content {
+            background: #0f0f0f; border-top: 4px solid #00ffb3; border-radius: 16px;
+            padding: 40px 30px; width: 90%; max-width: 400px; text-align: center; position: relative;
+        }
+        .close-modal { position: absolute; top: 15px; right: 20px; color: #666; font-size: 1.5rem; cursor: pointer; }
+        .modal-input {
+            width: 100%; padding: 15px; margin-bottom: 20px; background: #050505; color: #fff;
+            border: 1px solid #333; border-radius: 8px; text-align: center;
+        }
+        .modal-btn { background: #00ffb3; color: #050505; padding: 15px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; }
+        .error-msg { color: #ff3333; font-size: 0.85rem; margin-top: 10px; display: none; }
+
+        @media (max-width: 768px) { .card { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
+    <div class="menu-icon" onclick="toggleMenu()">
+        <div></div><div></div><div></div>
+    </div>
+
+    <nav class="nav-menu" id="navMenu">
+        <a href="#">Início</a>
+        <a href="#" onclick="abrirPeloMenu('curso', 'Agenda de IA')">Agenda de IA</a>
+        <a href="#" onclick="abrirPeloMenu('mentoria', 'Área de Mentoria')">Mentoria</a>
+        <a href="#" onclick="abrirPeloMenu('gerador', 'Gerador de Imagens IA')">Gerador de Imagens</a>
+        <a href="#" onclick="abrirPeloMenu('ebook', 'Baixar E-books')">Baixar E-books</a>
+    </nav>
+
     <div class="container">
         <header>
-            <h1>Escola Tríade</h1>
+            <h1>Escola Triade</h1>
             <p class="subtitle">Inovação Audiovisual e Mentorias</p>
         </header>
 
@@ -119,141 +155,79 @@
 
         <div class="card-grid">
             <div class="card js-link" data-tipo="curso" data-titulo="Agenda de IA">
-                <div class="card-img">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80">
-                </div>
-                <div class="card-content">
-                    <h2>Agenda de IA</h2>
-                    <p>Início em 10/05. Acesso às salas individuais por aluno.</p>
-                    <span class="btn-action">Acessar Agenda</span>
-                </div>
+                <div class="card-img"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80"></div>
+                <div class="card-content"><h2>Agenda de IA</h2><p>Acesso às salas individuais.</p><span class="btn-action">Acessar</span></div>
             </div>
 
             <div class="card js-link" data-tipo="mentoria" data-titulo="Área de Mentoria">
-                <div class="card-img">
-                    <img src="https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305_1280.jpg">
-                </div>
-                <div class="card-content">
-                    <h2>Mentoria</h2>
-                    <p>Espaço reservado para acompanhamento individual.</p>
-                    <span class="btn-action">Acessar Mentoria</span>
-                </div>
+                <div class="card-img"><img src="https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305_1280.jpg"></div>
+                <div class="card-content"><h2>Mentoria</h2><p>Acompanhamento individual.</p><span class="btn-action">Acessar</span></div>
             </div>
 
             <div class="card js-link" data-tipo="gerador" data-titulo="Gerador de Imagens IA">
-                <div class="card-img">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80">
-                </div>
+                <div class="card-img"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"></div>
+                <div class="card-content"><h2>Gerador de Imagens</h2><p>Criação via IA.</p><span class="btn-action">Abrir</span></div>
+            </div>
+
+            <div class="card js-link" data-tipo="ebook" data-titulo="Baixar E-books">
+                <div class="card-img"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"></div>
                 <div class="card-content">
-                    <h2>Gerador de Imagens</h2>
-                    <p>Ferramenta exclusiva para criação de artes via Inteligência Artificial.</p>
-                    <span class="btn-action">Abrir Gerador</span>
+                    <h2>Baixar E-books</h2>
+                    <p>Esteja com a matrícula em dias. Vencimentos de 10 a 12 de cada mês.</p>
+                    <span class="btn-action">Download</span>
                 </div>
             </div>
         </div>
-        
-        <footer>
-            <p>Copyright Plínio Studio</p>
-        </footer>
+    </div>
+
+    <div class="modal-overlay" id="customModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModalFunc()">&times;</span>
+            <h3 id="modalTitle">Área Restrita</h3>
+            <p id="modalDesc" style="color: #888; margin-bottom: 20px;">Insira a senha:</p>
+            <input type="password" id="modalInput" class="modal-input">
+            <button id="modalSubmit" class="modal-btn">Entrar</button>
+            <p class="error-msg" id="modalError">Senha incorreta.</p>
+        </div>
     </div>
 
     <script>
+        function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
+
+        const modal = document.getElementById('customModal');
+        const modalInput = document.getElementById('modalInput');
+        const modalError = document.getElementById('modalError');
+        let currentType = '', currentTitle = '';
+
+        function abrirModal(tipo, titulo) {
+            currentType = tipo; currentTitle = titulo;
+            document.getElementById('modalTitle').textContent = titulo;
+            modalInput.value = ''; modalError.style.display = 'none';
+            modal.classList.add('active');
+            toggleMenu(); // Fecha menu se estiver aberto
+        }
+
+        function closeModalFunc() { modal.classList.remove('active'); }
+
         document.querySelectorAll('.js-link').forEach(card => {
-            card.addEventListener('click', () => {
-                const tipo = card.getAttribute('data-tipo');
-                
-                // Define qual senha pedir baseado no card
-                if (tipo === "gerador") {
-                    let senhaGerador = prompt("Área Restrita: Gerador de Imagens.\nInsira a senha de acesso:");
-                    if (senhaGerador === "Matrix") {
-                        window.open('https://iadesignerweb.github.io/imagem-gerador/', '_blank');
-                    } else if (senhaGerador !== null) {
-                        alert("Senha incorreta.");
-                    }
-                } else {
-                    let senhaPadrao = prompt("Insira a senha de acesso:");
-                    if (senhaPadrao === "2031") {
-                        abrirPlataforma(tipo, card.getAttribute('data-titulo'));
-                    } else if (senhaPadrao !== null) {
-                        alert("Acesso negado.");
-                    }
-                }
-            });
+            card.addEventListener('click', () => abrirModal(card.dataset.tipo, card.dataset.titulo));
         });
 
-        function abrirPlataforma(tipo, titulo) {
-            const janela = window.open('', '_blank');
-            
-            const alunosIA = [
-                { nome: "Alexandre pé de serra", obs: "Segunda e Quarta-feira às 10:00h. Início 10/05." },
-                { nome: "Wilma Duarte", obs: "Sexta-feira e Sábado às 20:00h. Início 10/05." },
-                { nome: "Eli (mãe de Gael)", obs: "Sexta-feira e Sábado às 20:00h. Início 10/05." },
-                { nome: "Maurina e Anikelly", obs: "Terça e Quinta-feira. Início 10/05." },
-                { nome: "Scheila e Samantha", obs: "Terça e Quinta-feira. Início 10/05." },
-                { nome: "Izabel e Sophia", obs: "Sábado às 20:00h e Domingo às 09:00h. Início 10/05." },
-                { nome: "Maria Eduarda", obs: "Sábado às 20:00h e Domingo às 09:00h. Início 10/05." },
-                { nome: "Deo Garcez", obs: "Domingo às 09:00h. Início 10/05." },
-                { nome: "Marta", obs: "Domingo às 08:00h. Início 10/05." }
-            ];
+        function abrirPeloMenu(tipo, titulo) { abrirModal(tipo, titulo); }
 
-            const alunosMentoria = ["Wilma Duarte", "Eli (mãe de Gael)", "Maurina", "Anikelly", "Scheila", "Samantha", "Izabel", "Sophia", "Maria Eduarda", "Deo Garcez", "Marta", "Alexandre pé de serra"];
-
-            let corpoHtml = '<div class="dias-grid">';
-            
-            if (tipo === 'curso') {
-                alunosIA.forEach(item => {
-                    corpoHtml += `
-                    <div class="dia-card">
-                        <div class="info-row" style="font-size:1.1rem; color:#fff;"><strong>Aluno(a):</strong> ${item.nome}</div>
-                        <div class="info-row"><strong>Observações:</strong> ${item.obs}</div>
-                        <a href="#" target="_blank" class="btn-meet">Entrar na Sala do Meet</a>
-                    </div>`;
-                });
-            } else {
-                alunosMentoria.forEach(aluno => {
-                    corpoHtml += `
-                    <div class="dia-card">
-                        <div class="info-row" style="font-size:1.1rem; color:#fff;"><strong>Aluno(a):</strong> ${aluno}</div>
-                        <div class="info-row"><em>Espaço reservado para observações da mentoria...</em></div>
-                        <a href="#" target="_blank" class="btn-meet">Abrir Sala do Meet</a>
-                    </div>`;
-                });
-            }
-            corpoHtml += '</div>';
-
-            const htmlFinal = `
-                <!DOCTYPE html>
-                <html lang="pt-BR">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-                    <title>${titulo}</title>
-                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-                    <style>
-                        body { background-color: #050505; color: #f0f0f0; font-family: 'Inter', sans-serif; padding: 15px; margin: 0; display: flex; flex-direction: column; align-items: center; }
-                        .ead-container { width: 100%; max-width: 500px; }
-                        h1 { color: #00ffb3; font-size: 1.2rem; text-align: center; margin: 20px 0; text-transform: uppercase; letter-spacing: 1px; }
-                        .dias-grid { display: flex; flex-direction: column; gap: 14px; }
-                        .dia-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; border-left: 4px solid #00ffb3; }
-                        .info-row { font-size: 0.95rem; color: #888; }
-                        .info-row strong { color: #00ffb3; }
-                        .btn-meet { background-color: #00ffb3; color: #000; text-decoration: none; padding: 12px; border-radius: 8px; font-weight: 700; text-align: center; margin-top: 10px; font-size: 0.9rem; text-transform: uppercase; }
-                        footer { margin-top: 40px; padding: 20px; color: #444; font-size: 0.75rem; text-align: center; border-top: 1px solid #222; width: 100%; }
-                    </style>
-                </head>
-                <body>
-                    <div class="ead-container">
-                        <h1>${titulo}</h1>
-                        ${corpoHtml}
-                        <footer>Copyright Plínio Studio</footer>
-                    </div>
-                </body>
-                </html>`;
-
-            janela.document.write(htmlFinal);
-            janela.document.close();
-        }
+        document.getElementById('modalSubmit').addEventListener('click', () => {
+            const pw = modalInput.value.toLowerCase();
+            if (currentType === 'ebook' && pw === 'ia2031') {
+                window.open('https://www.mediafire.com/file/4z0cbvz582s3kzi/O_Manual_Pericial_da_IA_Versao_Final_UNIFICADA.pdf_20260426_124121_0000+(2).pdf/file', '_blank');
+                closeModalFunc();
+            } else if (currentType === 'gerador' && pw === 'matrix') {
+                window.open('https://iadesignerweb.github.io/imagem-gerador/', '_blank');
+                closeModalFunc();
+            } else if ((currentType === 'curso' || currentType === 'mentoria') && pw === '2031') {
+                alert('Acessando plataforma...'); // Aqui você chama sua função abrirPlataforma()
+                closeModalFunc();
+            } else { modalError.style.display = 'block'; }
+        });
     </script>
 </body>
 </html>
-

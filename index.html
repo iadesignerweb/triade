@@ -22,64 +22,38 @@
             padding-bottom: 80px; 
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
 
-        /* --- MENU HAMBÚRGUER --- */
+        /* --- MENU --- */
         .menu-icon {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
-            cursor: pointer;
-            background: #0f0f0f;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #1f1f1f;
+            position: fixed; top: 20px; right: 20px; z-index: 1001; cursor: pointer;
+            background: #0f0f0f; padding: 10px; border-radius: 8px; border: 1px solid #1f1f1f;
         }
-
-        .menu-icon div {
-            width: 25px;
-            height: 3px;
-            background-color: #00ffb3;
-            margin: 5px 0;
-            transition: 0.4s;
-        }
+        .menu-icon div { width: 25px; height: 3px; background-color: #00ffb3; margin: 5px 0; transition: 0.4s; }
 
         .nav-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 250px;
-            height: 100%;
-            background: #0f0f0f;
-            z-index: 1000;
-            transition: 0.5s;
-            padding-top: 80px;
-            border-left: 1px solid #1f1f1f;
+            position: fixed; top: 0; right: -100%; width: 250px; height: 100%;
+            background: #0f0f0f; z-index: 1000; transition: 0.5s; padding-top: 80px; border-left: 1px solid #1f1f1f;
         }
-
         .nav-menu.active { right: 0; }
-
         .nav-menu a {
-            display: block;
-            padding: 15px 25px;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1px solid #1f1f1f;
-            transition: 0.3s;
+            display: block; padding: 15px 25px; color: #fff; text-decoration: none;
+            font-weight: 600; border-bottom: 1px solid #1f1f1f; transition: 0.3s;
         }
-
         .nav-menu a:hover { background: #1f1f1f; color: #00ffb3; }
 
         /* --- HEADER --- */
         header { margin-bottom: 40px; text-align: center; }
         h1 { font-size: 2.2rem; font-weight: 800; text-transform: uppercase; color: #fff; margin-bottom: 8px; }
         .subtitle { color: #00ffb3; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;}
+        
+        .btn-impacto {
+            background: transparent; border: 2px solid #00ffb3; color: #00ffb3;
+            padding: 14px 28px; font-size: 0.9rem; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1px; border-radius: 8px; cursor: pointer; margin-top: 25px;
+            transition: 0.3s; box-shadow: 0 0 10px rgba(0, 255, 179, 0.1);
+        }
+        .btn-impacto:hover { background: #00ffb3; color: #050505; }
 
         /* --- VÍDEO --- */
         .video-wrapper {
@@ -96,7 +70,6 @@
         }
         .card:hover { border-color: #00ffb3; transform: translateY(-5px); }
         .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .card:hover .card-img img { transform: scale(1.05); }
         .card-content { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
         .card-content h2 { font-size: 1.5rem; color: #fff; margin-bottom: 10px; }
         .card-content p { font-size: 0.95rem; color: #888; margin-bottom: 24px; }
@@ -107,7 +80,7 @@
         }
         .card:hover .btn-action { background-color: #00ffb3; color: #050505; }
 
-        /* --- MODAL --- */
+        /* --- MODAL DE SENHA PROFISSIONAL --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000;
@@ -121,20 +94,40 @@
         .close-modal { position: absolute; top: 15px; right: 20px; color: #666; font-size: 1.5rem; cursor: pointer; }
         .modal-input {
             width: 100%; padding: 15px; margin-bottom: 20px; background: #050505; color: #fff;
-            border: 1px solid #333; border-radius: 8px; text-align: center;
+            border: 1px solid #333; border-radius: 8px; text-align: center; font-size: 1.1rem; transition: 0.3s;
         }
-        .modal-btn { background: #00ffb3; color: #050505; padding: 15px; border: none; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; }
-        .error-msg { color: #ff3333; font-size: 0.85rem; margin-top: 10px; display: none; }
+        .modal-btn { 
+            background: #00ffb3; color: #050505; padding: 15px; border: none; border-radius: 8px; 
+            font-weight: 800; cursor: pointer; width: 100%; text-transform: uppercase; transition: 0.3s; 
+        }
+
+        /* --- MODAL SISTEMA SOLAR --- */
+        .modal-solar {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 3000;
+            justify-content: center; align-items: center; opacity: 0; transition: 0.4s ease;
+        }
+        .modal-solar.active { display: flex; opacity: 1; }
+        .modal-solar-container {
+            width: 95%; max-width: 1200px; height: 90vh; background: #050505;
+            border: 1px solid #1f1f1f; border-radius: 16px; position: relative;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .btn-fechar-solar {
+            position: absolute; top: 10px; right: 15px; background: none; border: none;
+            color: #fff; font-size: 2rem; cursor: pointer; opacity: 0.5; z-index: 3010;
+        }
+        .solar-header { text-align: center; padding: 15px; font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #1f1f1f; }
+        .solar-iframe-wrapper { flex-grow: 1; background: #000; }
+        .solar-iframe-wrapper iframe { width: 100%; height: 100%; border: none; }
+        .solar-footer { text-align: center; padding: 15px; font-size: 0.85rem; color: #00ffb3; text-transform: uppercase; font-weight: 700; border-top: 1px solid #1f1f1f; }
 
         @media (max-width: 768px) { .card { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <div class="menu-icon" onclick="toggleMenu()">
-        <div></div><div></div><div></div>
-    </div>
-
+    <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
     <nav class="nav-menu" id="navMenu">
         <a href="#">Início</a>
         <a href="#" onclick="abrirPeloMenu('curso', 'Agenda de IA')">Agenda de IA</a>
@@ -145,37 +138,27 @@
 
     <div class="container">
         <header>
-            <h1>Triade</h1>
+            <h1>TRIADE</h1>
             <p class="subtitle">Inovação Audiovisual e Mentorias</p>
+            <button class="btn-impacto" onclick="abrirModalSolar()">Veja do que somos capazes de fazer</button>
         </header>
-
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/VHMTkDUReKY" allowfullscreen></iframe>
-        </div>
-
+        <div class="video-wrapper"><iframe src="https://www.youtube.com/embed/VHMTkDUReKY" allowfullscreen></iframe></div>
         <div class="card-grid">
             <div class="card js-link" data-tipo="curso" data-titulo="Agenda de IA">
                 <div class="card-img"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80"></div>
                 <div class="card-content"><h2>Agenda de IA</h2><p>Acesso às salas individuais.</p><span class="btn-action">Acessar</span></div>
             </div>
-
             <div class="card js-link" data-tipo="mentoria" data-titulo="Área de Mentoria">
                 <div class="card-img"><img src="https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305_1280.jpg"></div>
                 <div class="card-content"><h2>Mentoria</h2><p>Acompanhamento individual.</p><span class="btn-action">Acessar</span></div>
             </div>
-
             <div class="card js-link" data-tipo="gerador" data-titulo="Gerador de Imagens IA">
                 <div class="card-img"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"></div>
                 <div class="card-content"><h2>Gerador de Imagens</h2><p>Criação via IA.</p><span class="btn-action">Abrir</span></div>
             </div>
-
             <div class="card js-link" data-tipo="ebook" data-titulo="Baixar E-books">
                 <div class="card-img"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"></div>
-                <div class="card-content">
-                    <h2>Baixar E-books</h2>
-                    <p>Esteja com a matrícula em dias. Vencimentos de 10 a 12 de cada mês.</p>
-                    <span class="btn-action">Download</span>
-                </div>
+                <div class="card-content"><h2>Baixar E-books</h2><p>Esteja com a matrícula em dias. Vencimentos de 10 a 12 de cada mês.</p><span class="btn-action">Download</span></div>
             </div>
         </div>
     </div>
@@ -184,10 +167,18 @@
         <div class="modal-content">
             <span class="close-modal" onclick="closeModalFunc()">&times;</span>
             <h3 id="modalTitle">Área Restrita</h3>
-            <p id="modalDesc" style="color: #888; margin-bottom: 20px;">Insira a senha:</p>
-            <input type="password" id="modalInput" class="modal-input">
-            <button id="modalSubmit" class="modal-btn">Entrar</button>
-            <p class="error-msg" id="modalError">Senha incorreta.</p>
+            <p id="modalDesc" style="color: #888; margin-bottom: 20px;">Insira a senha de acesso:</p>
+            <input type="password" id="modalInput" class="modal-input" placeholder="****">
+            <button id="modalSubmit" class="modal-btn">ENTRAR</button>
+        </div>
+    </div>
+
+    <div class="modal-solar" id="modalSolar">
+        <div class="modal-solar-container">
+            <button class="btn-fechar-solar" onclick="fecharModalSolar()">&times;</button>
+            <div class="solar-header">Nova metodologia de ensino</div>
+            <div class="solar-iframe-wrapper"><iframe src="sistema.html"></iframe></div>
+            <div class="solar-footer">Exemplo de sistema solar</div>
         </div>
     </div>
 
@@ -196,15 +187,18 @@
 
         const modal = document.getElementById('customModal');
         const modalInput = document.getElementById('modalInput');
-        const modalError = document.getElementById('modalError');
+        const btnSubmit = document.getElementById('modalSubmit');
         let currentType = '', currentTitle = '';
 
         function abrirModal(tipo, titulo) {
             currentType = tipo; currentTitle = titulo;
             document.getElementById('modalTitle').textContent = titulo;
-            modalInput.value = ''; modalError.style.display = 'none';
+            modalInput.value = '';
+            modalInput.style.borderColor = '#333';
+            btnSubmit.style.background = '#00ffb3';
+            btnSubmit.textContent = 'ENTRAR';
             modal.classList.add('active');
-            toggleMenu(); // Fecha menu se estiver aberto
+            document.getElementById('navMenu').classList.remove('active');
         }
 
         function closeModalFunc() { modal.classList.remove('active'); }
@@ -215,19 +209,120 @@
 
         function abrirPeloMenu(tipo, titulo) { abrirModal(tipo, titulo); }
 
-        document.getElementById('modalSubmit').addEventListener('click', () => {
-            const pw = modalInput.value.toLowerCase();
+        // --- FUNÇÃO PARA GERAR A TELA DOS ALUNOS LIMPA E ORGANIZADA ---
+        function abrirPlataforma(titulo) {
+            const janela = window.open('', '_blank');
+            
+            // 👇 LISTA DE ALUNOS UNIFICADA E LIMPA. COLOQUE OS LINKS AQUI:
+            const listaDeAlunos = [
+                { nome: "Alexandre", linkMeet: "COLOQUE_O_LINK_AQUI" },
+                { nome: "Deo Garcez", linkMeet: "COLOQUE_O_LINK_AQUI" },
+                { nome: "Eli mãe de Gael", linkMeet: "COLOQUE_O_LINK_AQUI" },
+                { nome: "Izabel e Sophia", linkMeet: "COLOQUE_O_LINK_AQUI" },
+                { nome: "Maria Eduarda", linkMeet: "COLOQUE_O_LINK_AQUI" },
+                { nome: "Marta", linkMeet: "COLOQUE_O_LINK_AQUI" },
+                { nome: "Maurina e Anikelly", linkMeet: "COLOQUE_O_LINK_AQUI" },
+                { nome: "Scheila e Samantha", linkMeet: "COLOQUE_O_LINK_AQUI" },
+                { nome: "Wilma Duarte", linkMeet: "COLOQUE_O_LINK_AQUI" }
+            ];
+
+            let corpoHtml = '<div class="dias-grid">';
+            
+            listaDeAlunos.forEach(aluno => {
+                corpoHtml += `
+                <div class="dia-card">
+                    <div class="info-row" style="font-size:1.2rem; color:#fff; text-align: center; margin-bottom: 5px;">
+                        <strong>${aluno.nome}</strong>
+                    </div>
+                    <a href="${aluno.linkMeet}" target="_blank" class="btn-meet">Entrar na Sala do Meet</a>
+                </div>`;
+            });
+            
+            corpoHtml += '</div>';
+
+            const htmlFinal = `
+                <!DOCTYPE html>
+                <html lang="pt-BR">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+                    <title>${titulo}</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+                    <style>
+                        body { background-color: #050505; color: #f0f0f0; font-family: 'Inter', sans-serif; padding: 15px; margin: 0; display: flex; flex-direction: column; align-items: center; }
+                        .ead-container { width: 100%; max-width: 500px; }
+                        h1 { color: #00ffb3; font-size: 1.4rem; text-align: center; margin: 20px 0 30px 0; text-transform: uppercase; letter-spacing: 1px; }
+                        .dias-grid { display: flex; flex-direction: column; gap: 16px; }
+                        .dia-card { background: #111; border: 1px solid #222; border-radius: 12px; padding: 25px; display: flex; flex-direction: column; gap: 10px; border-left: 4px solid #00ffb3; }
+                        .btn-meet { background-color: #00ffb3; color: #050505; text-decoration: none; padding: 15px; border-radius: 8px; font-weight: 800; text-align: center; font-size: 1rem; text-transform: uppercase; transition: 0.3s; }
+                        .btn-meet:hover { background-color: #fff; color: #000; }
+                        footer { margin-top: 50px; padding: 20px; color: #444; font-size: 0.75rem; text-align: center; border-top: 1px solid #222; width: 100%; }
+                    </style>
+                </head>
+                <body>
+                    <div class="ead-container">
+                        <h1>${titulo}</h1>
+                        ${corpoHtml}
+                        <footer>Copyright Plínio Studio</footer>
+                    </div>
+                </body>
+                </html>`;
+
+            janela.document.write(htmlFinal);
+            janela.document.close();
+        }
+
+        btnSubmit.addEventListener('click', () => {
+            const pw = modalInput.value.trim().toLowerCase(); 
+
+            // EFEITO DE ERRO
+            function erro() {
+                modalInput.style.borderColor = '#ff3333';
+                btnSubmit.style.background = '#ff3333';
+                btnSubmit.style.color = '#fff';
+                btnSubmit.textContent = 'SENHA INCORRETA ✗';
+                
+                setTimeout(() => {
+                    btnSubmit.style.background = '#00ffb3';
+                    btnSubmit.style.color = '#050505';
+                    btnSubmit.textContent = 'ENTRAR';
+                    modalInput.style.borderColor = '#333';
+                }, 2000);
+            }
+
+            // CHECAGEM DAS SENHAS E ABERTURA DAS TELAS
             if (currentType === 'ebook' && pw === 'ia2031') {
-                window.open('https://www.mediafire.com/file/4z0cbvz582s3kzi/O_Manual_Pericial_da_IA_Versao_Final_UNIFICADA.pdf_20260426_124121_0000+(2).pdf/file', '_blank');
-                closeModalFunc();
+                modalInput.style.borderColor = '#00ffb3';
+                btnSubmit.style.background = '#00ffb3';
+                btnSubmit.style.color = '#050505';
+                btnSubmit.textContent = 'ACESSO LIBERADO ✓';
+                setTimeout(() => { window.open('https://www.mediafire.com/file/4z0cbvz582s3kzi/O_Manual_Pericial_da_IA_Versao_Final_UNIFICADA.pdf_20260426_124121_0000+(2).pdf/file', '_blank'); closeModalFunc(); }, 1200);
+            
             } else if (currentType === 'gerador' && pw === 'matrix') {
-                window.open('https://iadesignerweb.github.io/imagem-gerador/', '_blank');
-                closeModalFunc();
+                modalInput.style.borderColor = '#00ffb3';
+                btnSubmit.style.background = '#00ffb3';
+                btnSubmit.style.color = '#050505';
+                btnSubmit.textContent = 'ACESSO LIBERADO ✓';
+                setTimeout(() => { window.open('https://iadesignerweb.github.io/imagem-gerador/', '_blank'); closeModalFunc(); }, 1200);
+            
             } else if ((currentType === 'curso' || currentType === 'mentoria') && pw === '2031') {
-                alert('Acessando plataforma...'); // Aqui você chama sua função abrirPlataforma()
-                closeModalFunc();
-            } else { modalError.style.display = 'block'; }
+                modalInput.style.borderColor = '#00ffb3';
+                btnSubmit.style.background = '#00ffb3';
+                btnSubmit.style.color = '#050505';
+                btnSubmit.textContent = 'ACESSO LIBERADO ✓';
+                
+                setTimeout(() => { 
+                    abrirPlataforma(currentTitle);
+                    closeModalFunc(); 
+                }, 1200);
+            
+            } else {
+                erro();
+            }
         });
+
+        function abrirModalSolar() { document.getElementById('modalSolar').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        function fecharModalSolar() { document.getElementById('modalSolar').classList.remove('active'); document.body.style.overflow = 'auto'; }
     </script>
 </body>
 </html>

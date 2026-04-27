@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PLINIOSTUDIO 3D</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { margin: 0; overflow: hidden; background: #000; font-family: system-ui, sans-serif; color: #fff; touch-action: none; }
+        #c { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        
+        .g {
+            background: rgba(10, 14, 39, .9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+        }
+        
+        .p {
+            background: linear-gradient(135deg, rgba(20, 25, 50, .95) 0%, rgba(10, 14, 39, .98) 100%);
+            border: 1px solid rgba(100, 150, 255, .3);
+            border-radius: 16px;
+            padding: 20px;
+            position: fixed;
+            right: 16px;
+            top: 90px;
+            width: 90%;
+            max-width: 450px;
+            max-height: 75vh;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            animation: fadeIn .3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .x {
+            position: absolute; top: 12px; right: 12px; width: 36px; height: 36px;
+            border-radius: 50%; background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(255, 255, 255, .2); color: #fff; cursor: pointer;
+            font-size: 22px; display: flex; align-items: center; justify-content: center;
+            transition: all .2s;
+        }
+        
+        .x:hover { background: rgba(255, 100, 100, .3); transform: rotate(90deg); }
+        .h { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding: 16px; }
+        .f { position: fixed; bottom: 0; left: 0; right: 0; z-index: 50; padding: 16px; }
+        .s { position: fixed; left: 16px; top: 50%; transform: translateY(-50%); z-index: 40; width: 220px; padding: 16px; display: none; max-height: 85vh; overflow-y: auto; }
+        .m { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 40; width: 95%; padding: 12px; display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; }
+        .m::-webkit-scrollbar { display: none; }
+        
+        .b {
+            background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 12px; padding: 12px; cursor: pointer; color: #fff;
+            transition: all .25s; display: flex; align-items: center; gap: 10px;
+            border-left: 3px solid transparent;
+        }
+        
+        .b:hover, .b:active {
+            background: rgba(100, 150, 255, .25); border-left-color: #6090ff; transform: translateX(4px);
+        }
+        
+        .d { width: 28px; height: 28px; border-radius: 50%; box-shadow: 0 0 12px currentColor; flex-shrink: 0; }
+        .o { margin: 10px 0; padding: 12px; background: rgba(255, 255, 255, .06); border-radius: 8px; border-left: 3px solid #6090ff; }
+        .q { background: rgba(255, 255, 255, .1); border-radius: 8px; padding: 12px; margin: 8px 0; }
+        .glow { text-shadow: 0 0 20px rgba(100, 150, 255, .6), 0 0 40px rgba(100, 150, 255, .3); }
+        
+        @media(min-width: 1024px) { .s { display: block; } .m { display: none; } }
+        @media(max-width: 1023px) {
+            .p { left: 50%; transform: translateX(-50%); right: auto; top: 80px; width: 95%; }
+            .b { min-width: 100px; flex-direction: column; text-align: center; padding: 10px; }
+            .d { margin: 0 auto 6px !important; }
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    <div class="h">
+        <div class="g" style="padding:16px 20px;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+            <div style="display:flex;align-items:center;gap:14px">
+                <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#8b5cf6);display:flex;align-items:center;justify-content:center;box-shadow:0 0 25px rgba(59,130,246,.5)">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                        <path d="M2 12h20" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 style="font-size:22px;margin:0" class="glow">EXPERIMENTO PLINIOSTUDIO 3D</h1>
+                    <p style="font-size:12px;color:#93c5fd;margin:0;letter-spacing:.1em;text-transform:uppercase">Sistema Solar Interativo</p>
+                </div>
+            </div>
+            <div style="font-size:14px;color:#9ca3af">
+                <span style="display:inline-block;width:10px;height:10px;background:#22c55e;border-radius:50%;margin-right:8px;box-shadow:0 0 12px #22c55e;animation:pulse 2s infinite"></span>Renderização 3D Ativa
+            </div>
+        </div>
+    </div>
+    <nav class="s g" id="sl">
+        <h3 style="font-size:12px;color:#9ca3af;text-align:center;margin-bottom:16px;text-transform:uppercase;letter-spacing:.15em">🪐 Planetas</h3>
+        <div id="pl"></div>
+    </nav>
+    <nav class="g m" id="ml">
+        <div id="pm" style="display:flex;gap:10px"></div>
+    </nav>
+    <main id="ip" class="p">
+        <button class="x" onclick="document.getElementById('ip').style.display='none'">×</button>
+        <div id="pc"></div>
+    </main>
+    <footer class="f">
+        <div class="g" style="padding:12px 20px;max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;font-size:14px;flex-wrap:wrap;gap:10px">
+            <div style="color:#9ca3af">👆 Toque planetas • 🤏 Pinch zoom • 👋 Arraste para rotacionar</div>
+            <div style="color:#93c5fd;font-weight:600">© 2026 PLÍNIO FABRÍCIO</div>
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('c'), ctx = canvas.getContext('2d');
+        function setSize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        setSize();
+        window.addEventListener('resize', setSize);
+        
+        const W = () => canvas.width, H = () => canvas.height, CX = () => W() / 2, CY = () => H() / 2;
+        let cam = { rotX: .4, rotY: 0, zoom: 1, targetZoom: 1 };
+        
+        const planets = {
+            sun: { n: "Sol", c: "#FFD700", s: 28, d: 0, sp: 0, a: 0, em: !0, glow: "#FF8C00", x: 0, y: 0, z: 0 },
+            mercury: { n: "Mercúrio", c: "#8C8C8C", s: 7, d: 55, sp: .035, a: 0, dc: "O menor planeta do Sistema Solar e o mais próximo do Sol...", cp: { nc: "Núcleo de ferro", mt: "Silicatos", cr: "Basalto", at: "Quase inexistente" }, st: { di: "4.879 km", ma: "3,285 × 10²³ kg", te: "-173°C a 427°C", gr: "3,7 m/s²" }, moons: [] },
+            venus: { n: "Vênus", c: "#E6E6B8", s: 11, d: 85, sp: .026, a: .8, dc: "O planeta mais quente do Sistema Solar...", cp: { nc: "Núcleo de ferro-níquel", mt: "Silicatos", cr: "Rochas vulcânicas", at: "96% Dióxido de Carbono" }, st: { di: "12.104 km", ma: "4,867 × 10²⁴ kg", te: "462°C", gr: "8,87 m/s²" }, moons: [] },
+            earth: { n: "Terra", c: "#2E86AB", s: 12, d: 120, sp: .018, a: 1.6, dc: "Nosso lar, o único planeta conhecido com vida...", cp: { nc: "Núcleo interno sólido", mt: "Silicatos", cr: "Basalto", at: "78% Nitrogênio" }, st: { di: "12.742 km", ma: "5,972 × 10²⁴ kg", te: "15°C", gr: "9,8 m/s²" }, moons: [{ n: "Lua", d: "Formada há 4,5 bilhões de anos" }] },
+            mars: { n: "Marte", c: "#C1440E", s: 8, d: 160, sp: .014, a: 2.4, dc: "O Planeta Vermelho...", cp: { nc: "Núcleo de ferro", mt: "Silicatos", cr: "Basalto", at: "95% Dióxido de Carbono" }, st: { di: "6.779 km", ma: "6,39 × 10²³ kg", te: "-63°C", gr: "3,71 m/s²" }, moons: [{ n: "Fobos", d: "Lua irregular" }, { n: "Deimos", d: "Lua menor" }] },
+            jupiter: { n: "Júpiter", c: "#D4A373", s: 24, d: 230, sp: .007, a: .3, dc: "O maior planeta do Sistema Solar...", cp: { nc: "Núcleo rochoso", mt: "Hidrogênio metálico", ce: "Hidrogênio molecular", at: "Nuvens de amônia" }, st: { di: "139.820 km", ma: "1,898 × 10²⁷ kg", te: "-108°C", gr: "24,79 m/s²" }, moons: [{ n: "Io", d: "Maior atividade geológica" }, { n: "Europa", d: "Crosta de gelo" }] },
+            saturn: { n: "Saturno", c: "#F4D03F", s: 21, d: 310, sp: .005, a: 1.1, rings: !0, dc: "Famoso por seus belos anéis...", cp: { nc: "Núcleo rochoso", mt: "Hidrogênio metálico", ce: "Hidrogênio molecular", an: "Partículas de gelo" }, st: { di: "116.460 km", ma: "5,683 × 10²⁶ kg", te: "-139°C", gr: "10,44 m/s²" }, moons: [{ n: "Titã", d: "Única lua com atmosfera densa" }] },
+            uranus: { n: "Urano", c: "#AED6F1", s: 16, d: 390, sp: .0035, a: 1.9, dc: "O planeta 'deitado'...", cp: { nc: "Silicatos e ferro", mt: "Água, amônia", ce: "Hidrogênio", at: "Metano" }, st: { di: "50.724 km", ma: "8,681 × 10²⁵ kg", te: "-197°C", gr: "8,87 m/s²" }, moons: [{ n: "Titania", d: "Maior lua" }] },
+            neptune: { n: "Netuno", c: "#5B7CFF", s: 15, d: 470, sp: .0028, a: 2.7, dc: "O planeta mais distante...", cp: { nc: "Rochas", mt: "Fluido supercrítico", ce: "Hidrogênio", at: "Nuvens de metano" }, st: { di: "49.244 km", ma: "1,024 × 10²⁶ kg", te: "-201°C", gr: "11,15 m/s²" }, moons: [{ n: "Tritão", d: "Maior lua" }] }
+        };
+
+        const stars = [];
+        for (let i = 0; i < 500; i++) stars.push({ x: (Math.random() - .5) * 2e3, y: (Math.random() - .5) * 2e3, z: (Math.random() - .5) * 1e3 - 500, size: Math.random() * 2 + .5, alpha: Math.random() * .8 + .2 });
+
+        function project3D(x, y, z) {
+            const cosY = Math.cos(cam.rotY), sinY = Math.sin(cam.rotY), x1 = x * cosY - z * sinY, z1 = x * sinY + z * cosY, cosX = Math.cos(cam.rotX), sinX = Math.sin(cam.rotX), y2 = y * cosX - z1 * sinX, z2 = y * sinX + z1 * cosX, distance = 600, scale = distance / (distance + z2) * cam.zoom;
+            return { x: CX() + x1 * scale, y: CY() + y2 * scale, scale: scale, z: z2, visible: z2 > -distance + 100 };
+        }
+
+        function lighten(c, p) { const num = parseInt(c.replace('#', ''), 16), amt = Math.round(2.55 * p), R = Math.min(255, (num >> 16) + amt), G = Math.min(255, ((num >> 8) & 255) + amt), B = Math.min(255, (num & 255) + amt); return '#' + (16777216 + R * 65536 + G * 256 + B).toString(16).slice(1); }
+        function darken(c, p) { const num = parseInt(c.replace('#', ''), 16), amt = Math.round(2.55 * p), R = Math.max(0, (num >> 16) - amt), G = Math.max(0, ((num >> 8) & 255) - amt), B = Math.max(0, (num & 255) - amt); return '#' + (16777216 + R * 65536 + G * 256 + B).toString(16).slice(1); }
+
+        function drawPlanet3D(p) {
+            p.d > 0 && (p.a += p.sp, p.x = Math.cos(p.a) * p.d, p.z = Math.sin(p.a) * p.d, p.y = Math.sin(p.a * 2) * 8);
+            const pos = project3D(p.x, p.y, p.z);
+            if (!pos.visible) return null;
+            const size = p.s * pos.scale;
+            if (size < 1) return null;
+            if (p.em) for (let i = 3; i >= 1; i--) { const glow = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, size * (1 + .8 * i)); glow.addColorStop(0, p.c + (1 === i ? 'FF' : '60')); glow.addColorStop(.5, p.glow + (1 === i ? '40' : '20')); glow.addColorStop(1, 'transparent'); ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(pos.x, pos.y, size * (1 + .8 * i), 0, 2 * Math.PI); ctx.fill(); }
+            const grad = ctx.createRadialGradient(pos.x - .35 * size, pos.y - .35 * size, .1 * size, pos.x, pos.y, size);
+            grad.addColorStop(0, lighten(p.c, 30)); grad.addColorStop(.3, p.c); grad.addColorStop(.7, p.c); grad.addColorStop(1, darken(p.c, 50));
+            ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(pos.x, pos.y, size, 0, 2 * Math.PI); ctx.fill();
+            if (!p.em) { ctx.fillStyle = 'rgba(255,255,255,.15)'; ctx.beginPath(); ctx.arc(pos.x - .3 * size, pos.y - .3 * size, .25 * size, 0, 2 * Math.PI); ctx.fill(); }
+            if (p.rings) { ctx.save(); ctx.translate(pos.x, pos.y); ctx.scale(1, .25); ctx.rotate(.5 * p.a); ctx.strokeStyle = 'rgba(200,180,140,.5)'; ctx.lineWidth = .35 * size; ctx.beginPath(); ctx.arc(0, 0, 1.8 * size, 0, 2 * Math.PI); ctx.stroke(); ctx.strokeStyle = 'rgba(180,160,120,.4)'; ctx.lineWidth = .25 * size; ctx.beginPath(); ctx.arc(0, 0, 1.5 * size, 0, 2 * Math.PI); ctx.stroke(); ctx.restore(); }
+            return size > 12 && 'Sol' !== p.n && (ctx.fillStyle = 'rgba(255,255,255,.95)', ctx.font = `bold ${Math.min(.35 * size, 14)}px system-ui`, ctx.textAlign = 'center', ctx.shadowColor = 'rgba(0,0,0,.8)', ctx.shadowBlur = 4, ctx.fillText(p.n, pos.x, pos.y + size + 18), ctx.shadowBlur = 0), { x: pos.x, y: pos.y, size: size, z: pos.z, data: p };
+        }
+
+        let planetPositions = [], isDragging = !1, lastX = 0, lastY = 0, time = 0;
+
+        function animate() {
+            const bgGrad = ctx.createRadialGradient(CX(), CY(), 0, CX(), CY(), 1.2 * Math.max(W(), H()));
+            bgGrad.addColorStop(0, '#0a0e27'); bgGrad.addColorStop(.4, '#050811'); bgGrad.addColorStop(1, '#000000');
+            ctx.fillStyle = bgGrad; ctx.fillRect(0, 0, W(), H());
+            stars.forEach(star => { const pos = project3D(star.x, star.y, star.z); pos.visible && pos.z < 0 && (ctx.globalAlpha = star.alpha * Math.max(.3, pos.scale), ctx.fillStyle = '#ffffff', ctx.beginPath(), ctx.arc(pos.x, pos.y, star.size * pos.scale, 0, 2 * Math.PI), ctx.fill()); });
+            ctx.globalAlpha = 1; ctx.strokeStyle = 'rgba(255,255,255,.06)'; ctx.lineWidth = 1;
+            Object.values(planets).forEach(p => { if (0 === p.d) return; ctx.beginPath(); for (let a = 0; a <= 2 * Math.PI; a += .08) { const x = Math.cos(a) * p.d, z = Math.sin(a) * p.d, y = 8 * Math.sin(2 * a), pos = project3D(x, y, z); 0 === a ? ctx.moveTo(pos.x, pos.y) : ctx.lineTo(pos.x, pos.y); } ctx.closePath(); ctx.stroke(); });
+            planetPositions = [];
+            const sortedPlanets = Object.values(planets).sort((a, b) => { const za = a.d > 0 ? Math.sin(a.a) * a.d : 0, zb = b.d > 0 ? Math.sin(b.a) * b.d : 0; return za - zb; });
+            sortedPlanets.forEach(p => { const drawn = drawPlanet3D(p); drawn && planetPositions.push(drawn); });
+            cam.zoom += .08 * (cam.targetZoom - cam.zoom); time++; requestAnimationFrame(animate);
+        }
+
+        function getPos(e) { return e.touches ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : { x: e.clientX, y: e.clientY }; }
+        function checkPlanetClick(x, y) { const sorted = planetPositions.sort((a, b) => b.z - a.z); for (let p of sorted) if (Math.hypot(x - p.x, y - p.y) < p.size + 15) return void showPlanetInfo(p.data); }
+
+        function showPlanetInfo(p) {
+            if ('Sol' === p.n) return;
+            const panel = document.getElementById('ip'), content = document.getElementById('pc'), compNames = { nc: 'Núcleo', mt: 'Manto', cr: 'Crosta', at: 'Atmosfera', ce: 'Camada Externa', an: 'Anéis' }, compColors = { nc: '#ff6b6b', mt: '#feca57', cr: '#48dbfb', at: '#1dd1a1', ce: '#a78bfa', an: '#fbbf24' };
+            const compHTML = Object.keys(p.cp).map(k => `<div class="o" style="border-left-color: ${compColors[k] || '#6090ff'}"><h5 style="font-size: 11px; color: #9ca3af; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em;">${compNames[k] || k}</h5><p style="font-size: 14px; color: #e5e7eb; line-height: 1.6;">${p.cp[k]}</p></div>`).join('');
+            const moonsHTML = p.moons.length ? `<div style="margin-top: 20px;"><h4 style="font-size: 16px; font-weight: 600; color: #93c5fd; margin-bottom: 12px;">🌙 Luas e Satélites (${p.moons.length})</h4>${p.moons.map(m => `<div class="q"><h5 style="font-weight: 600; color: white; margin-bottom: 6px; font-size: 14px;">${m.n}</h5><p style="font-size: 13px; color: #d1d5db; line-height: 1.5;">${m.d}</p></div>`).join('')}</div>` : '';
+            const statsHTML = Object.keys(p.st).map(s => { const names = { di: 'Diâmetro', ma: 'Massa', te: 'Temperatura', gr: 'Gravidade' }; return `<div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);"><span style="font-size: 11px; color: #6b7280; text-transform: uppercase; display: block; margin-bottom: 6px; letter-spacing: 0.05em;">${names[s] || s}</span><span style="font-size: 15px; font-weight: 600; color: #bfdbfe;">${p.st[s]}</span></div>`; }).join('');
+            content.innerHTML = `<div style="margin-bottom: 16px;"><h2 style="font-size: 28px; font-weight: bold; margin-bottom: 10px; color: white;" class="glow">${p.n}</h2><div style="width: 100%; height: 4px; background: linear-gradient(90deg, ${p.c}, transparent); border-radius: 2px;"></div></div><p style="color: #d1d5db; line-height: 1.8; margin-bottom: 20px; font-size: 15px;">${p.dc}</p><h4 style="font-size: 16px; font-weight: 600; color: #93c5fd; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">🔬 Composição e Estrutura</h4>${compHTML}<h4 style="font-size: 16px; font-weight: 600; color: #93c5fd; margin: 20px 0 14px; display: flex; align-items: center; gap: 8px;">📊 Dados e Estatísticas</h4><div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">${statsHTML}</div>${moonsHTML}`;
+            panel.style.display = 'block';
+        }
+
+        canvas.addEventListener('mousedown', e => { isDragging = !0; lastX = e.clientX; lastY = e.clientY; checkPlanetClick(e.clientX, e.clientY); });
+        canvas.addEventListener('mousemove', e => { if (isDragging) { const dx = e.clientX - lastX, dy = e.clientY - lastY; cam.rotY += .008 * dx; cam.rotX += .008 * dy; cam.rotX = Math.max(-1.2, Math.min(1.2, cam.rotX)); lastX = e.clientX; lastY = e.clientY; } canvas.style.cursor = 'default'; for (let p of planetPositions) if (Math.hypot(e.clientX - p.x, e.clientY - p.y) < p.size + 15) { canvas.style.cursor = 'pointer'; break; } });
+        canvas.addEventListener('mouseup', () => isDragging = !1);
+        canvas.addEventListener('touchstart', e => { e.preventDefault(); const pos = getPos(e); isDragging = !0; lastX = pos.x; lastY = pos.y; checkPlanetClick(pos.x, pos.y); }, { passive: !1 });
+        canvas.addEventListener('touchmove', e => { e.preventDefault(); if (isDragging && 1 === e.touches.length) { const pos = getPos(e); cam.rotY += .012 * (pos.x - lastX); cam.rotX += .012 * (pos.y - lastY); cam.rotX = Math.max(-1.2, Math.min(1.2, cam.rotX)); lastX = pos.x; lastY = pos.y; } }, { passive: !1 });
+        canvas.addEventListener('touchend', () => isDragging = !1);
+        canvas.addEventListener('wheel', e => { e.preventDefault(); cam.targetZoom *= 1 - .001 * e.deltaY; cam.targetZoom = Math.max(.3, Math.min(4, cam.targetZoom)); }, { passive: !1 });
+
+        const pl = document.getElementById('pl'), pm = document.getElementById('pm');
+        Object.values(planets).forEach(p => {
+            if ('Sol' === p.n) return;
+            const btn = document.createElement('button'); btn.className = 'b'; btn.innerHTML = `<span class="d" style="background-color: ${p.c}; box-shadow: 0 0 15px ${p.c}80;"></span><div style="flex: 1;"><div style="font-weight: 600; font-size: 15px;">${p.n}</div><div style="font-size: 12px; color: #9ca3af;">${p.d} UA</div></div>`; btn.onclick = () => { showPlanetInfo(p); cam.rotY = -p.a + Math.PI / 2; cam.targetZoom = 1.8; }; pl.appendChild(btn);
+            const mbtn = document.createElement('button'); mbtn.className = 'b'; mbtn.style.cssText = 'min-width: 100px; flex-direction: column; text-align: center; padding: 10px;'; mbtn.innerHTML = `<span class="d" style="background-color: ${p.c}; margin: 0 auto 8px; box-shadow: 0 0 15px ${p.c}80;"></span><span style="font-size: 13px; font-weight: 500;">${p.n}</span>`; mbtn.onclick = () => showPlanetInfo(p); pm.appendChild(mbtn);
+        });
+
+        animate();
+        console.log('🚀 Sistema Solar 3D Real iniciado!');
+    </script>
+</body>
+</html>

@@ -307,7 +307,7 @@
                 htmlCards += '<div class="dia-card" onclick="pedirSenha(\'' + nome + '\')"><strong>Espaço de ' + nome + '</strong><span>Acessar Sala</span></div>';
             });
 
-            // Montagem Segura da Tela do Aluno
+            // Montagem da Tela do Aluno com Blindagem Anti-Fuga Maximizada
             const pageCode = '<!DOCTYPE html>\n' +
             '<html lang="pt-BR">\n' +
             '<head>\n' +
@@ -337,6 +337,7 @@
             '        .modal-btn-cancel { background: transparent; color: #94A3B8; padding: 10px; border: none; cursor: pointer; width: 100%; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;}\n' +
             '        .modal-btn-cancel:hover { color: #FFF; }\n' +
             '        .youtube-blocker-top { position: absolute; top: 0; left: 0; width: 100%; height: 60px; z-index: 10; background: transparent; cursor: default; }\n' +
+            '        .youtube-blocker-bottom { position: absolute; bottom: 0; right: 0; width: 110px; height: 50px; z-index: 10; background: transparent; cursor: default; }\n' +
             '    </style>\n' +
             '</head>\n' +
             '<body>\n' +
@@ -376,7 +377,8 @@
             '        <div style="background: #151C2C; border: 1px solid #2A3441; border-radius: 12px; padding: 25px; border-left: 4px solid #00E5FF; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">\n' +
             '            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid #2A3441;">\n' +
             '                <div class="youtube-blocker-top"></div>\n' +
-            '                <iframe id="iframeVideoAtivo" src="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>\n' +
+            '                <div class="youtube-blocker-bottom"></div>\n' +
+            '                <iframe id="iframeVideoAtivo" src="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" sandbox="allow-scripts allow-same-origin" allowfullscreen></iframe>\n' +
             '            </div>\n' +
             '        </div>\n' +
             '        <footer>Copyright 2026 Tríade</footer>\n' +

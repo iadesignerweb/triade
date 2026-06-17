@@ -1,459 +1,744 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Tríade | Escola Audiovisual & IA</title>
-    <meta name="theme-color" content="#0B0F19">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
-
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '963317484266778'); 
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=963317484266778&ev=PageView&noscript=1"
-    /></noscript>
-    
+    <title>Galeria de Prompts - Plínio Studio</title>
     <style>
+        /* --- CONFIGURAÇÕES GERAIS E CORES --- */
         :root {
-            --bg-main: #0B0F19;
-            --bg-card: #151C2C;
-            --text-main: #E2E8F0;
-            --text-muted: #94A3B8;
-            --accent-primary: #00E5FF;
-            --accent-secondary: #3B82F6;
-            --border-color: #2A3441;
+            --grafite-bg: #121418;
+            --grafite-card: #1c1f26;
+            --azul-oceano: #0077b6;
+            --azul-claro: #00b4d8;
+            --texto-principal: #f8f9fa;
+            --texto-secundario: #adb5bd;
+            --borda: #2a2d35;
+            --premium-color: #ffd700;
+            --vermelho-recusa: #e63946;
+            --verde-aceite: #2a9d8f;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            padding-bottom: 90px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--grafite-bg);
+            color: var(--texto-principal);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        .container { max-width: 960px; margin: 0 auto; padding: 60px 20px; }
-
-        /* MENU */
-        .menu-icon {
-            position: fixed; top: 25px; right: 25px; z-index: 1001; cursor: pointer;
-            background: var(--bg-card); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0,229,255,0.1); transition: 0.3s;
+        /* --- NAVEGAÇÃO E BOTÃO VOLTAR --- */
+        .topo-nav {
+            max-width: 1400px;
+            margin: 0 auto 20px auto;
+            width: 100%;
         }
-        .menu-icon:hover { border-color: var(--accent-primary); }
-        .menu-icon div { width: 25px; height: 3px; background-color: var(--text-main); margin: 5px 0; transition: 0.4s; }
 
-        .nav-menu {
-            position: fixed; top: 0; right: -100%; width: 280px; height: 100%;
-            background: var(--bg-card); z-index: 1000; transition: 0.5s ease-out; padding-top: 90px; 
-            border-left: 1px solid var(--border-color);
-            box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            color: var(--texto-secundario);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            background: var(--grafite-card);
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--borda);
         }
-        .nav-menu.active { right: 0; }
-        .nav-menu a {
-            display: block; padding: 18px 30px; color: var(--text-main); text-decoration: none;
-            font-weight: 500; font-size: 1rem; border-bottom: 1px solid var(--border-color); transition: 0.3s;
+
+        .btn-voltar:hover {
+            color: var(--azul-claro);
+            border-color: var(--azul-claro);
         }
-        .nav-menu a:hover { background: #1E293B; color: var(--accent-primary); padding-left: 35px; }
-        .nav-menu a.highlight-menu-btn { color: #25d366; font-weight: 700; margin-top: 20px; border-top: 1px solid var(--border-color); }
 
-        /* HEADER */
-        header { margin-bottom: 60px; text-align: center; }
-        h1 { font-size: 3.2rem; font-weight: 800; text-transform: uppercase; color: #FFFFFF; margin-bottom: 12px; letter-spacing: -1px;}
-        .subtitle { color: var(--accent-primary); font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 3px;}
-
-        /* VIDEO PRINCIPAL */
-        .video-wrapper {
-            position: relative; padding-bottom: 56.25%; height: 0; background: #000;
-            border-radius: 20px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 70px;
-            box-shadow: 0 10px 40px rgba(0,229,255,0.05);
+        /* --- CABEÇALHO --- */
+        .header-studio {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 10px;
         }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
 
-        /* SECOES */
-        .section-title { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px; text-transform: uppercase; text-align: center; letter-spacing: 3px; font-weight: 600; }
-
-        /* CARDS */
-        .card-grid { display: flex; flex-direction: column; gap: 30px; margin-bottom: 70px; }
-        .card {
-            display: grid; grid-template-columns: 300px 1fr; background: var(--bg-card);
-            border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: 0.4s; cursor: pointer;
+        .header-studio h1 {
+            color: var(--texto-principal);
+            font-size: 2.2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
         }
-        .card:hover { border-color: var(--accent-secondary); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15); }
-        
-        .card-img { position: relative; overflow: hidden; background: #000; }
-        .card-img::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to right, rgba(21, 28, 44, 0.1), rgba(21, 28, 44, 0.9));
-            z-index: 1; transition: 0.4s;
+
+        .header-studio h1 span {
+            color: var(--azul-oceano);
+            font-weight: bold;
         }
-        .card-img img { 
-            width: 100%; height: 100%; object-fit: cover; transition: 0.6s;
-            filter: grayscale(80%) contrast(120%) brightness(70%); 
+
+        .header-studio p {
+            color: var(--texto-secundario);
+            font-size: 1rem;
+            line-height: 1.5;
         }
-        .card:hover .card-img img { transform: scale(1.05); filter: grayscale(20%) contrast(110%) brightness(90%); }
-        .card:hover .card-img::after { opacity: 0.5; }
 
-        .card-content { padding: 40px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
-        .card-content h2 { font-size: 1.6rem; color: #FFFFFF; margin-bottom: 12px; font-weight: 600; }
-        .card-content p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
-        
-        .card-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; display: block; }
-
-        .btn-action {
-            display: inline-flex; align-items: center; justify-content: center; color: #000;
-            font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; border: none;
-            padding: 12px 26px; border-radius: 8px; transition: 0.3s; width: fit-content;
-            background-color: var(--accent-primary); box-shadow: 0 0 15px rgba(0,229,255,0.2);
+        /* --- GRID DA GALERIA --- */
+        .grid-galeria {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            /* Responsividade automática ajustada */
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            flex: 1;
+            width: 100%;
         }
-        .card:hover .btn-action { background-color: #FFFFFF; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
 
-        .divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border-color), transparent); margin-bottom: 70px; }
+        /* --- CARTÕES --- */
+        .cartao-prompt {
+            background-color: var(--grafite-card);
+            border: 1px solid var(--borda);
+            border-radius: 8px;
+            padding: 20px 10px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            overflow: hidden;
+        }
 
-        /* FOOTER */
-        .site-footer { background-color: var(--bg-card); border-top: 1px solid var(--border-color); padding: 50px 20px 120px 20px; text-align: center; }
-        .footer-content h2 { color: #FFFFFF; font-size: 1.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-        .footer-content p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
-        .footer-bottom { color: #5A6A80; font-size: 0.8rem; border-top: 1px solid var(--border-color); padding-top: 20px; max-width: 600px; margin: 0 auto; }
+        .cartao-prompt:hover {
+            border-color: var(--azul-oceano);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 119, 182, 0.15);
+        }
 
-        /* MODAIS */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 15, 25, 0.85); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; opacity: 0; transition: 0.3s; }
-        .modal-overlay.active { display: flex; opacity: 1; }
-        
-        .modal-content { background: var(--bg-card); border-top: 4px solid var(--accent-primary); border-radius: 16px; padding: 50px 40px; width: 90%; max-width: 420px; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid var(--border-color); }
-        .close-modal { position: absolute; top: 15px; right: 20px; color: var(--text-muted); font-size: 2rem; cursor: pointer; transition: 0.3s; line-height: 1; }
-        .close-modal:hover { color: #FFF; }
+        .cartao-prompt.premium:hover {
+            border-color: var(--premium-color);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.15);
+        }
 
-        .modal-content h3 { font-size: 1.5rem; color: #FFF; margin-bottom: 10px;}
-        .modal-input { width: 100%; padding: 16px; margin-bottom: 25px; background: rgba(0,0,0,0.3); color: #FFF; border: 1px solid var(--border-color); border-radius: 8px; text-align: center; font-size: 1.2rem; transition: 0.3s; font-weight: 600; letter-spacing: 2px; }
-        .modal-input:focus { border-color: var(--accent-primary); outline: none; box-shadow: 0 0 10px rgba(0,229,255,0.1); }
-        .modal-btn { background: var(--accent-secondary); color: #ffffff; padding: 16px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; text-transform: uppercase; transition: 0.3s; letter-spacing: 1px; }
-        .modal-btn:hover { background-color: #2563EB; }
+        .cartao-icone {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            transition: transform 0.3s ease;
+        }
 
-        .modal-fullscreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px); z-index: 3000; justify-content: center; align-items: center; opacity: 0; transition: 0.4s ease; }
-        .modal-fullscreen.active { display: flex; opacity: 1; }
-        .modal-container { width: 95%; max-width: 1200px; height: 90vh; background: #000; border: 1px solid var(--border-color); border-radius: 16px; position: relative; display: flex; flex-direction: column; overflow: hidden; }
-        .btn-fechar { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #ffffff; font-size: 2rem; cursor: pointer; opacity: 0.6; z-index: 3010; transition: 0.3s; }
-        .btn-fechar:hover { opacity: 1; color: var(--accent-primary); }
-        .modal-header { text-align: center; padding: 20px; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border-color); }
-        .modal-body { flex-grow: 1; background: #000; }
-        .modal-body iframe { width: 100%; height: 100%; border: none; }
-        .modal-footer { text-align: center; padding: 20px; font-size: 0.9rem; color: var(--accent-primary); text-transform: uppercase; font-weight: 600; border-top: 1px solid var(--border-color); }
+        .cartao-prompt:hover .cartao-icone {
+            transform: scale(1.1);
+        }
 
-        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background-color: #25d366; color: #ffffff; border-radius: 50px; padding: 14px 28px; display: flex; align-items: center; gap: 12px; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); z-index: 1000; text-decoration: none; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2); }
-        .whatsapp-float:hover { transform: translateY(-5px); background-color: #1ebe57; box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5); }
-        .whatsapp-float svg { width: 24px; height: 24px; fill: currentColor; }
+        .cartao-titulo {
+            font-size: 0.85rem;
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--texto-secundario);
+            padding: 0 5px;
+        }
 
-        @media (max-width: 768px) { 
-            .container { padding: 40px 15px; }
-            h1 { font-size: 2.2rem; }
-            .card { grid-template-columns: 1fr; border-radius: 12px; } 
-            .card-img { height: 220px; }
-            .card-content { padding: 30px 25px; }
-            .whatsapp-float { bottom: 20px; right: 20px; padding: 12px 20px; gap: 8px; font-size: 0.8rem; }
-            .nav-menu { width: 250px; }
-            .site-footer { padding-bottom: 100px; }
+        .tag-status {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 3px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .tag-free { background-color: var(--azul-oceano); color: #fff; }
+        .tag-premium { background-color: var(--premium-color); color: #000; }
+
+        /* --- MODAL (JANELAS FLUTUANTES) --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px; /* Evita colar nas bordas do celular */
+        }
+
+        .modal-content {
+            background-color: var(--grafite-bg);
+            border: 1px solid var(--azul-oceano);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 85vh; /* Ajuste para não sumir botão no mobile */
+            padding: 25px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .fechar-modal {
+            position: absolute;
+            top: 15px; right: 15px;
+            font-size: 1.8rem;
+            color: var(--texto-secundario);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            line-height: 1;
+        }
+
+        .fechar-modal:hover { color: #fff; }
+
+        .modal-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            padding-right: 20px; /* Espaço para o X */
+        }
+
+        .modal-texto {
+            font-family: monospace;
+            background: var(--grafite-card);
+            padding: 15px;
+            border-radius: 6px;
+            color: #d1d5db;
+            font-size: 0.85rem;
+            /* CÓDIGO CRÍTICO PARA NÃO VAZAR TELA NO MOBILE */
+            white-space: pre-wrap; 
+            word-wrap: break-word;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            /* ------------------------------------------- */
+            margin-bottom: 20px;
+            border: 1px solid var(--borda);
+            overflow-y: auto;
+            flex: 1; /* Ocupa o espaço restante */
+            max-height: 40vh; /* Altura máxima da caixa de texto */
+        }
+
+        .btn-copiar {
+            background-color: var(--azul-oceano);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-copiar:hover { background-color: var(--azul-claro); }
+
+        /* --- MODAL PREMIUM (FUNIL WHATSAPP) --- */
+        .modal-premium-content {
+            border-color: var(--premium-color);
+            text-align: center;
+            justify-content: center;
+            padding: 30px 20px;
+        }
+
+        .modal-premium-content h3 {
+            color: var(--premium-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-premium-content p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            color: var(--texto-principal);
+        }
+
+        .preco-destaque {
+            font-size: 1.8rem;
+            color: #fff;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn-sim, .btn-nao {
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .btn-sim {
+            background-color: var(--verde-aceite);
+            color: white;
+        }
+
+        .btn-sim:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.4);
+        }
+
+        .btn-nao {
+            background-color: transparent;
+            color: var(--texto-secundario);
+            border: 1px solid var(--borda);
+        }
+
+        .btn-nao:hover {
+            background-color: var(--vermelho-recusa);
+            color: white;
+            border-color: var(--vermelho-recusa);
+        }
+
+        /* --- RODAPÉ --- */
+        footer {
+            text-align: center;
+            padding: 30px 10px 10px 10px;
+            margin-top: 40px;
+            border-top: 1px solid var(--borda);
+            color: var(--texto-secundario);
+            font-size: 0.8rem;
+        }
+
+        footer span { color: var(--azul-oceano); font-weight: bold; }
+
+        /* --- ADAPTAÇÃO MOBILE ESPECÍFICA --- */
+        @media (max-width: 600px) {
+            .grid-galeria {
+                grid-template-columns: repeat(2, 1fr); /* Força 2 colunas no celular */
+                gap: 10px;
+            }
+            .cartao-prompt {
+                padding: 15px 5px;
+            }
+            .cartao-icone {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+            .cartao-titulo {
+                font-size: 0.75rem;
+            }
+            .header-studio h1 {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="menu-icon" onclick="toggleMenu()"><div></div><div></div><div></div></div>
-    <nav class="nav-menu" id="navMenu">
-        <a href="#">Início</a>
-        <a href="#" onclick="abrirPeloMenu('curso', 'Agenda de IA')">Agenda de IA</a>
-        <a href="#" onclick="abrirPeloMenu('mentoria', 'Área de Mentoria')">Mentoria</a>
-        <a href="#" onclick="abrirPeloMenu('gerador', 'Gerador de Imagens IA')">Gerador de Imagens</a>
-        <a href="#" onclick="abrirPeloMenu('ebook', 'Baixar E-books')">Baixar E-books</a>
-        <a href="https://wa.me/5587996029765" target="_blank" rel="noopener noreferrer" class="highlight-menu-btn">Atendimento WhatsApp</a>
-    </nav>
+    <div class="topo-nav">
+        <!-- Substitua "/" pelo link real da Home do Plínio Studio, se necessário -->
+        <a href="/" class="btn-voltar">⬅ Voltar ao Site Principal</a>
+    </div>
 
-    <div class="container">
-        <header>
-            <h1>Tríade</h1>
-            <p class="subtitle">Escola Audiovisual & Inteligência Artificial</p>
-        </header>
+    <div class="header-studio">
+        <h1>Plínio <span>Studio</span></h1>
+        <p>Biblioteca Oficial de Prompts • Galeria de Obras e Estilos</p>
+    </div>
 
-        <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/VHMTkDUReKY" allowfullscreen></iframe>
-        </div>
-
-        <h2 class="section-title">Nossa <span style="color: var(--accent-primary);">Metodologia</span></h2>
+    <div class="grid-galeria">
         
-        <div class="card-grid">
-            <div class="card" onclick="abrirModalSolar()">
-                <div class="card-img"><img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=800&q=80"></div>
-                <div class="card-content">
-                    <span class="card-tag" style="color: var(--accent-primary);">Inovação 3D</span>
-                    <h2>Sistema Solar Interativo</h2>
-                    <p>Mergulho em realidade aumentada, rotação espacial e dados astronômicos em tempo real.</p>
-                    <span class="btn-action">Explorar Módulo</span>
-                </div>
-            </div>
-
-            <div class="card" onclick="abrirModalAnatomia()">
-                <div class="card-img"><img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=800&q=80"></div>
-                <div class="card-content">
-                    <span class="card-tag" style="color: var(--accent-secondary);">Ciência Holográfica</span>
-                    <h2>Anatomia Humana 3D</h2>
-                    <p>Mapeamento interativo do sistema nervoso e isolamento avançado dos lobos cerebrais.</p>
-                    <span class="btn-action" style="background-color: var(--accent-secondary); color: #FFF;">Explorar Módulo</span>
-                </div>
-            </div>
+        <!-- ========================================== -->
+        <!-- OS 10 PRIMEIROS PROMPTS (LIBERADOS)        -->
+        <!-- ========================================== -->
+        
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-1')">
+            <span class="tag-status tag-free">Free</span>
+            <span class="cartao-icone">👔</span><span class="cartao-titulo">Moda Fashion Camisas</span>
+        </div>
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-2')">
+            <span class="tag-status tag-free">👧</span><span class="cartao-icone">👧</span><span class="cartao-titulo">3D Jardineira MODA</span>
+        </div>
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-3')">
+            <span class="tag-status tag-free">Free</span>
+            <span class="cartao-icone">💻</span><span class="cartao-titulo">Premium Sociedade</span>
+        </div>
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-4')">
+            <span class="tag-status tag-free">Free</span>
+            <span class="cartao-icone">🚲</span><span class="cartao-titulo">3D Homem Bicicleta</span>
+        </div>
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-5')">
+            <span class="tag-status tag-free">Free</span>
+            <span class="cartao-icone">👫</span><span class="cartao-titulo">Anime Casal 3D</span>
+        </div>
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-6')">
+            <span class="tag-status tag-free">Free</span>
+            <span class="cartao-icone">👩‍💼</span><span class="cartao-titulo">3D Professional Patchwork</span>
+        </div>
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-7')">
+            <span class="tag-status tag-free">Free</span>
+            <span class="cartao-icone">📓</span><span class="cartao-titulo">Indecisão Pensando</span>
+        </div>
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-8')">
+            <span class="tag-status tag-free">Free</span>
+            <span class="cartao-icone">🧔</span><span class="cartao-titulo">3D PIXEL Macro</span>
+        </div>
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-9')">
+            <span class="tag-status tag-free">Free</span>
+            <span class="cartao-icone">🎨</span><span class="cartao-titulo">2D Plínio Studio Color</span>
+        </div>
+        <div class="cartao-prompt" onclick="abrirModalFree('modal-10')">
+            <span class="tag-status tag-free">Free</span>
+            <span class="cartao-icone">🧕</span><span class="cartao-titulo">Prompt Sacro Lumen</span>
         </div>
 
-        <div class="divider"></div>
+        <!-- ========================================== -->
+        <!-- O RESTANTE DOS PROMPTS (PREMIUM - R$49,90) -->
+        <!-- ========================================== -->
+        
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Épico Troy')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">⚔️</span><span class="cartao-titulo">Épico Troy</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Desenho Plinio Studio')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">✏️</span><span class="cartao-titulo">Desenho Plinio Studio</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Mãe e Filho Aquarela')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">👩‍👦</span><span class="cartao-titulo">Mãe e Filho Aquarela</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Clone 3D Perfeito')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">👬</span><span class="cartao-titulo">Clone 3D Perfeito</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('4 Gerações Vertical')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">👨‍🦳</span><span class="cartao-titulo">4 Gerações</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Brasil Seleção Pôster')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">⚽</span><span class="cartao-titulo">Brasil Seleção Pôster</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('3D Impressionante Tim Burton')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">☕</span><span class="cartao-titulo">Tim Burton Caricatura</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Hub IA Agência Poster')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🚀</span><span class="cartao-titulo">Hub IA Poster</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Marisa Monte Scrapbook')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🎞️</span><span class="cartao-titulo">Marisa Monte Scrapbook</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('De Volta Para o Futuro 3D')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🚗</span><span class="cartao-titulo">De Volta Para o Futuro 3D</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Setup Homem 3D Pixar')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🎧</span><span class="cartao-titulo">Setup Homem 3D Pixar</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('PROMPTIFY AI Creator Brand')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🛍️</span><span class="cartao-titulo">PROMPTIFY AI Creator</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Sketsa Potret Pria')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">✍️</span><span class="cartao-titulo">Sketsa Potret Pria</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('WANITA TANGGUH')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🖼️</span><span class="cartao-titulo">WANITA TANGGUH</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('CEO do Plinio Studio')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🏢</span><span class="cartao-titulo">CEO do Plinio Studio</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Escritório Plinio Studio')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🖱️</span><span class="cartao-titulo">Escritório Plinio Studio</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Plínio e Maria Clara')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">👨‍👧</span><span class="cartao-titulo">Plínio e Maria Clara</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Foto de Perfil Premium')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">📸</span><span class="cartao-titulo">Foto Perfil Premium</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Neymar Pixar Miniature')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🇧🇷</span><span class="cartao-titulo">Neymar Pixar Miniature</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Mulher Vestido Veludo Vinho')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">👗</span><span class="cartao-titulo">Vestido Veludo Vinho</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Mulher Asas Luminosas')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🧚‍♀️</span><span class="cartao-titulo">Asas Luminosas</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Cena Film Noir 1940')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🕵️‍♀️</span><span class="cartao-titulo">Film Noir Anos 1940</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Pirata Sexy Estúdio')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🏴‍☠️</span><span class="cartao-titulo">Pirata Sexy Estúdio</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Maiô Boho Alta Costura')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🌴</span><span class="cartao-titulo">Maiô Boho Alta Costura</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Homem Spider-Man Pôr do Sol')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🕷️</span><span class="cartao-titulo">Homem e Spider-Man</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Rainha Má Neon')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🍎</span><span class="cartao-titulo">Rainha Má Neon</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Homem Cubo de Rubik Cósmico')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🧩</span><span class="cartao-titulo">Homem Cubo de Rubik</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Mulher Raposas Lagoa Lilás')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🌌</span><span class="cartao-titulo">Raposas Lagoa Lilás</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Skatista Ollie Prédio')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🛹</span><span class="cartao-titulo">Skatista Ollie Prédio</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Labirinto Pac-Man Futurista')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">👻</span><span class="cartao-titulo">Labirinto Pac-Man Futurista</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Homem Galeria do Rock')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">💿</span><span class="cartao-titulo">Galeria do Rock</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Mulher Cama Lençóis Sensual')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🛏️</span><span class="cartao-titulo">Cama Lençóis Sensual</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Homem Moto BMW Vasco')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🏍️</span><span class="cartao-titulo">Moto BMW Grafite Vasco</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Homem Livro de Eli')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">📖</span><span class="cartao-titulo">Livro de Eli Pós-Apocalíptico</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Homem Armageddon Batalha')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">☄️</span><span class="cartao-titulo">Armageddon Batalha</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Gladiador Leão Coliseu')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🗡️</span><span class="cartao-titulo">Gladiador Coliseu</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Homem Coliseu Noite Rolex')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">🏛️</span><span class="cartao-titulo">Homem Coliseu Noite</span>
+        </div>
+        <div class="cartao-prompt premium" onclick="abrirModalPremium('Mulher Câmera DSLR Gigante')">
+            <span class="tag-status tag-premium">Premium</span><span class="cartao-icone">📸</span><span class="cartao-titulo">DSLR Gigante Natureza</span>
+        </div>
+    </div>
 
-        <h2 class="section-title">Área do <span style="color: var(--accent-primary);">Aluno</span></h2>
+    <!-- ========================================== -->
+    <!-- ESTRUTURA DOS MODAIS FREE (TEXTOS REAIS)   -->
+    <!-- ========================================== -->
+    
+    <div id="modal-1" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-1')">&times;</button>
+            <h3>Moda Fashion Camisas Raul Seixas</h3>
+            <div class="modal-texto" id="txt-1">Create a premium high-fashion workwear magazine cover in a vertical 4:5 editorial poster format.
+A stylish male subject walks confidently toward the camera in a full-body runway-style pose, centered in the frame. His body is slightly in motion, one foot stepping forward, right hand casually inside the trouser pocket, left hand relaxed beside the body. His expression is calm, serious, and fashion-editorial. He wears narrow black sunglasses, slightly tousled dark hair, and a subtle layered silver chain necklace. 
 
-        <div class="card-grid">
-            <div class="card js-link" data-tipo="curso" data-titulo="Agenda de IA">
-                <div class="card-img"><img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80"></div>
-                <div class="card-content"><h2>Agenda de IA</h2><p>Acesso direto às salas individuais de aprendizado.</p><span class="btn-action">Acessar Sala</span></div>
-            </div>
-            <div class="card js-link" data-tipo="mentoria" data-titulo="Área de Mentoria">
-                <div class="card-img"><img src="https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305_1280.jpg"></div>
-                <div class="card-content"><h2>Mentoria IA</h2><p>Acompanhamento personalizado para o seu desenvolvimento.</p><span class="btn-action">Acessar Mentoria</span></div>
-            </div>
-            <div class="card js-link" data-tipo="gerador" data-titulo="Gerador de Imagens IA">
-                <div class="card-img"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"></div>
-                <div class="card-content"><h2>Estúdio Criativo IA</h2><p>Criação de imagens avançadas utilizando Inteligência Artificial.</p><span class="btn-action">Abrir Gerador</span></div>
-            </div>
-            <div class="card js-link" data-tipo="ebook" data-titulo="Baixar E-books">
-                <div class="card-img"><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80"></div>
-                <div class="card-content"><h2>Biblioteca Digital</h2><p>Material didático e guias avançados de IA para download.</p><span class="btn-action">Fazer Download</span></div>
+Outfit
+Oversized dark charcoal / black workwear jacket, worn open
+Clean white crewneck sweatshirt with a small square heritage-style logo patch on the left chest
+Loose dark charcoal wide-leg pleated trousers with natural drape and folds
+Chunky polished black leather shoes
+
+Scene & Lighting
+Set the subject in a dark grey studio environment with a smooth seamless backdrop and slightly reflective floor.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-1')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <div id="modal-2" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-2')">&times;</button>
+            <h3>3D Jardineira MODA</h3>
+            <div class="modal-texto" id="txt-2">Create a high-quality, cute chibi-style 3D character illustration of a little girl(upload person) with an oversized head, big, soft facial features, and a confident, playful attitude. She is wearing large, round, black sunglasses, a plain white t-shirt, and loose, dark blue denim overalls with realistic stitching, front bib pocket, side pockets, metal buttons, and rolled-up cuffs. She has natural-coloured hair tied into two low pigtails with soft, loose strands flying around her face.
+Pose: full-body standing pose, body tilted, one hand resting on her hip, the other hand lifting or adjusting her sunglasses near her eye. Her expression is cool, slightly pouty, stylish, and confident. She wears clean white sneakers and white socks.
+Style: adorable premium 3D cartoon render, soft skin, detailed hair strands, clean studio lighting.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-2')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <div id="modal-3" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-3')">&times;</button>
+            <h3>MODA PREMIUM SOCIEDADE ALTERNATIVA</h3>
+            <div class="modal-texto" id="txt-3">Create a cinematic 4:5 vertical studio portrait of the uploaded person.
+
+Composition:
+Upper-thigh to head framing.
+The subject is standing in a strong three-quarter profile, body turned noticeably to the viewer’s right.
+His head is slightly bowed downward, and his eyes are directed toward his left wrist. He is not looking at the camera.
+
+Pose lock:
+His right arm is bent naturally and holds a closed silver MacBook along his right side, slightly raised under the arm. The back of the laptop faces outward and the Apple logo is visible.
+
+Appearance:
+He wears a fitted black turtleneck sweater with slight fabric bunching near the forearms. He has neatly styled hair and thin round metal-frame glasses. Expression is calm, focused, natural, and elegant.
+Background: Deep black seamless studio background.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-3')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <div id="modal-4" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-4')">&times;</button>
+            <h3>Desenho 3D (Homem Bicicleta)</h3>
+            <div class="modal-texto" id="txt-4">Create a premium high-quality 3D stylized render of the uploaded man. Render him in a refined chibi caricature style, with the head slightly larger than the body and subtly exaggerated, charming proportions, but do not make him look like a toy or blind box figure. The result should look like a polished high-end animated 3D character render, clean, cinematic, and visually premium.
+Show him riding a bicycle with natural, smooth, and believable body movement, as if casually cycling through the city. His posture should feel relaxed and lively. 
+He is wearing a highly textured furry blue hoodie, layered over a cream t-shirt with “PLUM” written on the chest, along with loose black velvet pants. On his feet, he wears oversized green Puma sneakers.
+Background: A bright, clean, and colorful Jakarta urban scene.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-4')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <div id="modal-5" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-5')">&times;</button>
+            <h3>Anime Casal 3D</h3>
+            <div class="modal-texto" id="txt-5">Ultra-detailed stylized 3D character render of a playful young couple (male and female), designed with exaggerated chibi proportions (oversized heads, compact bodies), large expressive eyes, soft smooth skin, and highly detailed hair strands with natural color, natural flow and subtle flyaways.
+Characters:
+Female: long straight or slightly tousled hair, natural volume.
+Male: short to medium stylized hair.
+Facial Expression (IMPORTANT):
+Both characters have a mischievous, slightly defiant expression. Eyes looking sharply to the side (side-eye).
+Pose: Standing back-to-back, close together. Arms relaxed straight down at their sides.
+Clothing: Oversized long-sleeve cream beige sweatshirts, and maching trousers.
+Rendering Style: High-end 3D stylized realism (Pixar-like quality). Cinematic depth of field.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-5')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <div id="modal-6" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-6')">&times;</button>
+            <h3>3D Professional (Patchwork)</h3>
+            <div class="modal-texto" id="txt-6">Create a highly polished, ultra-detailed 3D animated portrait in a modern Pixar / Disney-inspired character style.
+Subject & Appearance:
+A woman with large, expressive eyes, soft rosy cheeks, and a smooth, cute youthful face. Her hair is natural color, styled in a slightly messy yet natural way.
+Outfit & Styling:
+She wears a vibrant, long-sleeved patchwork button-down shirt featuring intricate mixed patterns (paisley, florals, geometric motifs, and solid color blocks). The shirt is neatly tucked into high-waisted, tailored cream-white wide-leg trousers with sharp front pleats.
+Pose & Expression:
+Relaxed and confident stance. She stands upright with both hands casually placed inside her trouser pockets.
+Environment & Background:
+A geometric feature wall made of overlapping, staggered 3D rectangular panels with subtle wood grain textures. The background displays a smooth, vibrant gradient transitioning from bright golden-yellow to deep magenta-pink.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-6')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <div id="modal-7" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-7')">&times;</button>
+            <h3>Indecisão Pensando</h3>
+            <div class="modal-texto" id="txt-7">Transform the uploaded woman into a premium 4:5 vertical semi-realistic digital illustration drawn directly on white lined notebook paper. The artwork should look like it is painted and sketched on the paper surface, not pasted as a sticker, not a cut-out.
+Show her sitting cross-legged in the center of the page. Keep the pose natural, relaxed, and slightly imperfect. Her head is slightly raised and turned upward to one side. Her eyes look away thoughtfully, with a soft dreamy expression.
+Dress her in a white fitted sleeveless ribbed tank top, light blue high-waisted jeans with rolled cuffs, and off-white canvas sneakers.
+Background: white ruled notebook paper with faint horizontal lines and subtle paper texture. Around the subject, add light scrapbook-style hand-drawn doodles in black and warm beige. Add handwritten motivational words around her: BRAVE, DREAMER, CREATIVE, INSPIRED, CONFIDENT.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-7')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <div id="modal-8" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-8')">&times;</button>
+            <h3>3D PIXEL Macro-Realismo</h3>
+            <div class="modal-texto" id="txt-8">Create a hyper-realistic, high-detail portrait illustration using the uploaded image as the absolute facial reference. The subject’s face must remain 100% identical to the reference photo.
+The artwork features a half-body portrait of a young man with a rugged yet refined look, captured in a dramatic close-up framing with a slightly low-angle perspective. His expression is intense, thoughtful, and emotionally charged.
+Hair & Grooming: His dark hair is windswept and dynamic.
+Hands & Details: One hand is raised near the chin in a casual, contemplative pose. The hand features detailed black ink tattoos on the fingers and wrist.
+Clothing: He is wearing an oversized black hoodie, matte fabric with soft folds.
+Background & Color: Set the subject against a solid, bold, vibrant grafite background, clean and seamless, creating strong contrast with the black hoodie.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-8')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <div id="modal-9" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-9')">&times;</button>
+            <h3>Prompt 2D Plínio Studio Color Splash</h3>
+            <div class="modal-texto" id="txt-9">A high-contrast studio portrait using a selective color (“color splash”) technique. The subject is positioned front-facing toward the camera in a centered head-and-shoulders composition, with squared shoulders and a straight, balanced posture. The image is rendered primarily in monochrome, with only the lips remaining in vivid color.
+Identity & Face Match: Preserve the exact facial structure, proportions, skin tone.
+Expression & Pose: The subject faces directly forward with a calm, restrained expression and steady eye contact. Lips remain gently closed.
+Selective Color: The entire image is grayscale except for matte red lipstick, which remains the only colored element.
+Styling & Background: Long dark wavy hair parted at the center. The subject wears a structured black blazer with a formal white shirt. Background is a neutral dark gray studio gradient.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-9')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <div id="modal-10" class="modal-overlay">
+        <div class="modal-content">
+            <button class="fechar-modal" onclick="fecharModalFree('modal-10')">&times;</button>
+            <h3>Prompt Sacro Lumen</h3>
+            <div class="modal-texto" id="txt-10">𝕾𝖆𝖈𝖗𝖆 𝕷𝖚𝖒𝖊𝖓 — Macrorealismo Bíblico 8K
+Biblical Ultra Macro Portrait. Sacred Cinematic Realism.
+Ultra-realistic sacred cinematic portrait of a young biblical woman wearing a textured brown veil, centered symmetrical composition, direct eye contact, emotionally neutral expression, warm earthy monochromatic palette, hyper-detailed human skin with visible pores, micro sweat, natural facial oil, subtle imperfections, ultra detailed iris texture, realistic eyelashes, soft cracked lips, ultra defined facial anatomy, realistic subsurface scattering, microscopic fabric fibers and stitching on the veil and tunic. Warm cinematic low-key lighting, soft diffused shadows, dark amber background with subtle texture depth, photographed on a 50mm cinema lens, shallow depth of field, IMAX-quality realism, HDR lighting balance, 8K ultra realism.</div>
+            <button class="btn-copiar" onclick="copiarTexto('txt-10')">Copiar Prompt</button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL PREMIUM (POP-UP DE VENDAS)           -->
+    <!-- ========================================== -->
+    <div id="modal-premium" class="modal-overlay">
+        <div class="modal-content modal-premium-content">
+            <h3>PACOTE PREMIUM DE PROMPTS</h3>
+            <p>O prompt que você escolheu faz parte da coleção secreta e avançada do <strong>Plínio Studio</strong>. <br><br>Deseja adquirir o pacote completo com TODOS os prompts profissionais?</p>
+            <span class="preco-destaque">Por apenas R$ 49,90</span>
+            <br>
+            <div class="btn-group">
+                <button class="btn-sim" id="btn-comprar">Sim, quero comprar no WhatsApp!</button>
+                <button class="btn-nao" onclick="fecharModalPremium()">Não, continuar navegando</button>
             </div>
         </div>
     </div>
 
-    <footer class="site-footer">
-        <div class="footer-content">
-            <h2>Tríade</h2>
-            <p>Escola Audiovisual e Mentorias em Inteligência Artificial</p>
-            <div class="footer-bottom">&copy; 2026 Tríade. Todos os direitos reservados.</div>
-        </div>
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; 2026 <span>Plínio Studio</span>. Todos os direitos reservados.</p>
+        <p>Fundador e CEO: Plínio Fabrício</p>
     </footer>
 
-    <a href="https://wa.me/5587996029765" class="whatsapp-float" target="_blank" rel="noopener noreferrer" onclick="fbq('track', 'Contact');">
-        <svg viewBox="0 0 24 24"><path d="M12.031 21.033c-1.785 0-3.528-.465-5.074-1.347l-.364-.207-3.774.989 1.01-3.68-.227-.361c-.966-1.536-1.477-3.32-1.477-5.166 0-5.38 4.38-9.76 9.76-9.76 5.378 0 9.758 4.38 9.758 9.76 0 5.38-4.38 9.76-9.76 9.76zm0-17.863c-4.467 0-8.106 3.64-8.106 8.107 0 1.428.373 2.825 1.082 4.057l.115.198-.598 2.18 2.232-.585.19.112c1.196.702 2.56 1.071 3.974 1.071 4.466 0 8.105-3.64 8.105-8.107 0-4.467-3.64-8.107-8.107-8.107zm4.444 11.666c-.244-.122-1.444-.713-1.667-.795-.222-.082-.385-.122-.547.122-.162.244-.63.795-.773.957-.143.162-.288.183-.532.061-.244-.122-1.03-.38-1.96-1.213-.724-.648-1.213-1.45-1.356-1.694-.143-.244-.015-.376.107-.498.11-.11.244-.285.366-.427.122-.143.162-.244.244-.407.082-.162.04-.305-.02-.427-.061-.122-.547-1.318-.75-1.805-.198-.474-.398-.41-.547-.417-.143-.007-.307-.007-.47-.007-.162 0-.427.061-.65.305-.222.244-.853.834-.853 2.034s.874 2.36 1.017 2.543c.143.183 1.734 2.648 4.198 3.711.587.254 1.045.406 1.403.52.59.187 1.127.16 1.55.097.472-.07 1.444-.59 1.646-1.16.202-.57.202-1.057.143-1.16-.06-.102-.222-.163-.466-.285z"/></svg>
-        <span>Atendimento</span>
-    </a>
-
-    <div class="modal-overlay" id="customModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModalFunc()">&times;</span>
-            <h3 id="modalTitle">Área Restrita</h3>
-            <p id="modalDesc" style="color: var(--text-muted); margin-bottom: 25px;">Insira a senha de acesso para continuar:</p>
-            <input type="password" id="modalInput" class="modal-input" placeholder="****">
-            <button id="modalSubmit" class="modal-btn">ENTRAR</button>
-        </div>
-    </div>
-
-    <div class="modal-fullscreen" id="modalSolar"><div class="modal-container"><button class="btn-fechar" onclick="fecharModalSolar()">&times;</button><div class="modal-header">Metodologia de Ensino Inovadora</div><div class="modal-body"><iframe src="sistema.html" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe></div><div class="modal-footer">Módulo 3D: Sistema Solar Interativo</div></div></div>
-    <div class="modal-fullscreen" id="modalAnatomia"><div class="modal-container"><button class="btn-fechar" onclick="fecharModalAnatomia()">&times;</button><div class="modal-header">Metodologia de Ensino Inovadora</div><div class="modal-body"><iframe src="anatomia.html" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe></div><div class="modal-footer" style="color: var(--accent-secondary);">Módulo 3D: Anatomia Humana Interativa</div></div></div>
-
     <script>
-        function toggleMenu() { document.getElementById('navMenu').classList.toggle('active'); }
-
-        const modal = document.getElementById('customModal');
-        const modalInput = document.getElementById('modalInput');
-        const btnSubmit = document.getElementById('modalSubmit');
-        let currentType = '', currentTitle = '';
-
-        function abrirModal(tipo, titulo) {
-            currentType = tipo; currentTitle = titulo;
-            document.getElementById('modalTitle').textContent = titulo;
-            modalInput.value = '';
-            modalInput.style.borderColor = 'var(--border-color)';
-            btnSubmit.style.background = 'var(--accent-secondary)';
-            btnSubmit.textContent = 'ENTRAR';
-            modal.classList.add('active');
-            document.getElementById('navMenu').classList.remove('active');
+        // Lógica para Modais Free
+        function abrirModalFree(id) {
+            document.getElementById(id).style.display = 'flex';
         }
 
-        function closeModalFunc() { modal.classList.remove('active'); }
+        function fecharModalFree(id) {
+            document.getElementById(id).style.display = 'none';
+        }
 
-        document.querySelectorAll('.js-link').forEach(card => {
-            card.addEventListener('click', () => abrirModal(card.dataset.tipo, card.dataset.titulo));
-        });
-
-        function abrirPeloMenu(tipo, titulo) { abrirModal(tipo, titulo); }
-
-        function abrirPlataforma(titulo) {
-            const janela = window.open('', '_blank');
-            const listaDeAlunos = [
-                "Alexandre", "Deo Garcez", "Eli mãe de Gael",
-                "Izabel e Sophia", "Maria Eduarda", "Marta",
-                "Maurina e Anikelly", "Scheila e Samantha", "Wilma Duarte"
-            ];
-            
-            let htmlCards = '';
-            listaDeAlunos.forEach(function(nome) {
-                htmlCards += '<div class="dia-card" onclick="pedirSenha(\'' + nome + '\')"><strong>Espaço de ' + nome + '</strong><span>Acessar Sala</span></div>';
+        function copiarTexto(idTexto) {
+            const texto = document.getElementById(idTexto).innerText;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('Prompt copiado com sucesso, Comandante!');
             });
-
-            // Montagem da Tela do Aluno com Blindagem Anti-Fuga Maximizada
-            const pageCode = '<!DOCTYPE html>\n' +
-            '<html lang="pt-BR">\n' +
-            '<head>\n' +
-            '    <meta charset="UTF-8">\n' +
-            '    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n' +
-            '    <title>Tríade | ' + titulo + '</title>\n' +
-            '    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">\n' +
-            '    <style>\n' +
-            '        body { background-color: #0B0F19; color: #E2E8F0; font-family: "Inter", sans-serif; padding: 20px; margin: 0; display: flex; flex-direction: column; align-items: center; }\n' +
-            '        .ead-container { width: 100%; max-width: 600px; position: relative; z-index: 1; }\n' +
-            '        .btn-voltar-container { width: 100%; display: flex; justify-content: flex-start; margin-bottom: 30px; }\n' +
-            '        .btn-voltar { background: transparent; border: 1px solid #3B82F6; color: #3B82F6; padding: 12px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }\n' +
-            '        .btn-voltar:hover { background: #3B82F6; color: #FFF; box-shadow: 0 0 15px rgba(59,130,246,0.3); }\n' +
-            '        h1 { color: #FFF; font-size: 1.6rem; text-align: center; margin: 10px 0 40px 0; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid #00E5FF; padding-bottom: 15px; }\n' +
-            '        .dias-grid { display: flex; flex-direction: column; gap: 20px; }\n' +
-            '        .dia-card { background: #151C2C; border: 1px solid #2A3441; border-radius: 12px; padding: 25px; display: flex; flex-direction: column; gap: 10px; border-left: 4px solid #00E5FF; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: 0.3s; cursor: pointer; align-items: center;}\n' +
-            '        .dia-card:hover { border-color: #00E5FF; box-shadow: 0 10px 20px rgba(0,229,255,0.1); background: #1A233A; }\n' +
-            '        .dia-card strong { font-size: 1.3rem; color: #FFF; }\n' +
-            '        .dia-card span { font-size: 0.85rem; color: #3B82F6; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;}\n' +
-            '        footer { margin-top: 60px; padding: 30px; color: #94A3B8; font-size: 0.8rem; text-align: center; border-top: 1px solid #2A3441; width: 100%; }\n' +
-            '        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(11, 15, 25, 0.9); backdrop-filter: blur(8px); z-index: 2000; justify-content: center; align-items: center; }\n' +
-            '        .modal-content { background: #151C2C; border-top: 4px solid #00E5FF; border-radius: 16px; padding: 40px; width: 90%; max-width: 400px; text-align: center; border: 1px solid #2A3441; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative;}\n' +
-            '        .modal-content h3 { color: #FFF; font-size: 1.4rem; margin-bottom: 20px; }\n' +
-            '        .modal-input { width: 100%; padding: 15px; margin-bottom: 20px; background: rgba(0,0,0,0.3); color: #FFF; border: 1px solid #2A3441; border-radius: 8px; text-align: center; font-size: 1.2rem; font-weight: 600; letter-spacing: 2px; }\n' +
-            '        .modal-input:focus { outline: none; border-color: #00E5FF; }\n' +
-            '        .modal-btn { background: #3B82F6; color: #FFF; padding: 15px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; margin-bottom: 10px;}\n' +
-            '        .modal-btn-cancel { background: transparent; color: #94A3B8; padding: 10px; border: none; cursor: pointer; width: 100%; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;}\n' +
-            '        .modal-btn-cancel:hover { color: #FFF; }\n' +
-            '        .youtube-blocker-top { position: absolute; top: 0; left: 0; width: 100%; height: 60px; z-index: 10; background: transparent; cursor: default; }\n' +
-            '        .youtube-blocker-bottom { position: absolute; bottom: 0; right: 0; width: 110px; height: 50px; z-index: 10; background: transparent; cursor: default; }\n' +
-            '    </style>\n' +
-            '</head>\n' +
-            '<body>\n' +
-            '    <div id="aulaSemanaPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(11,15,25,0.85); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(8px);">\n' +
-            '        <div style="background:#151C2C; border-top:4px solid #00E5FF; border-radius:16px; padding:40px 30px; width:90%; max-width:420px; text-align:center; position:relative; box-shadow:0 20px 50px rgba(0,0,0,0.5); border:1px solid #2A3441;">\n' +
-            '            <span onclick="document.getElementById(\'aulaSemanaPopup\').style.display=\'none\'" style="position:absolute; top:15px; right:20px; color:#94A3B8; font-size:2rem; cursor:pointer; line-height:1;">&times;</span>\n' +
-            '            <h2 style="color:#FFF; font-size:1.6rem; text-transform:uppercase; margin-bottom:10px; letter-spacing:1px;">Aula da Semana</h2>\n' +
-            '            <p style="color:#00E5FF; font-weight:700; font-size:1.1rem; margin-bottom:20px; text-transform:uppercase;">Ativação de lojas para o Facebook</p>\n' +
-            '            <p style="color:#E2E8F0; font-size:0.95rem; line-height:1.6; margin-bottom:25px;">Nesta semana, assista ao tutorial oficial sobre como configurar e ativar sua loja no Facebook e Instagram.</p>\n' +
-            '            <div style="background:rgba(0,0,0,0.3); border:1px solid #2A3441; border-radius:8px; padding:15px; margin-bottom:25px;">\n' +
-            '                <p style="color:#94A3B8; font-size:0.85rem; font-weight:600;">Qualquer dúvida, entre em contato com o professor no privado.</p>\n' +
-            '            </div>\n' +
-            '            <button onclick="document.getElementById(\'aulaSemanaPopup\').style.display=\'none\'" style="background:#3B82F6; color:#FFF; border:none; padding:15px; border-radius:8px; font-weight:700; cursor:pointer; width:100%; text-transform:uppercase; letter-spacing:1px; transition:0.3s;">Começar a Assistir</button>\n' +
-            '        </div>\n' +
-            '    </div>\n' +
-            '    <div id="senhaModalAluno" class="modal-overlay">\n' +
-            '        <div class="modal-content">\n' +
-            '            <h3 id="nomeAlunoModal">Acesso</h3>\n' +
-            '            <input type="password" id="senhaAlunoInput" class="modal-input" placeholder="****">\n' +
-            '            <button id="btnValidarAluno" class="modal-btn" onclick="validarSenhaAluno()">ENTRAR NA AULA</button>\n' +
-            '            <button class="modal-btn-cancel" onclick="fecharModalAluno()">Cancelar</button>\n' +
-            '        </div>\n' +
-            '    </div>\n' +
-            '    <div class="ead-container" id="telaLista">\n' +
-            '        <div class="btn-voltar-container">\n' +
-            '            <button onclick="window.close()" class="btn-voltar">&#8592; VOLTAR PARA O SITE</button>\n' +
-            '        </div>\n' +
-            '        <h1>' + titulo + '</h1>\n' +
-            '        <div class="dias-grid">\n' + htmlCards + '        </div>\n' +
-            '        <footer>Copyright 2026 Tríade</footer>\n' +
-            '    </div>\n' +
-            '    <div class="ead-container" id="telaVideo" style="display:none;">\n' +
-            '        <div class="btn-voltar-container">\n' +
-            '            <button onclick="voltarParaLista()" class="btn-voltar">&#8592; VOLTAR PARA A LISTA</button>\n' +
-            '        </div>\n' +
-            '        <h1 id="tituloEspacoVideo">Espaço</h1>\n' +
-            '        <div style="background: #151C2C; border: 1px solid #2A3441; border-radius: 12px; padding: 25px; border-left: 4px solid #00E5FF; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">\n' +
-            '            <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; border: 1px solid #2A3441;">\n' +
-            '                <div class="youtube-blocker-top"></div>\n' +
-            '                <div class="youtube-blocker-bottom"></div>\n' +
-            '                <iframe id="iframeVideoAtivo" src="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" sandbox="allow-scripts allow-same-origin" allowfullscreen></iframe>\n' +
-            '            </div>\n' +
-            '        </div>\n' +
-            '        <footer>Copyright 2026 Tríade</footer>\n' +
-            '    </div>\n' +
-            '    <scr' + 'ipt>\n' +
-            '        setTimeout(() => { document.getElementById("aulaSemanaPopup").style.display = "flex"; }, 2000);\n' +
-            '        let alunoSelecionado = "";\n' +
-            '        const embedUrl = "https://www.youtube.com/embed/wN0TUXDhj7c?rel=0&modestbranding=1&controls=1&fs=0&playsinline=1";\n' +
-            '        function pedirSenha(nome) {\n' +
-            '            alunoSelecionado = nome;\n' +
-            '            document.getElementById("nomeAlunoModal").textContent = "Espaço de " + nome;\n' +
-            '            document.getElementById("senhaAlunoInput").value = "";\n' +
-            '            document.getElementById("senhaAlunoInput").style.borderColor = "#2A3441";\n' +
-            '            document.getElementById("btnValidarAluno").textContent = "ENTRAR NA AULA";\n' +
-            '            document.getElementById("btnValidarAluno").style.background = "#3B82F6";\n' +
-            '            document.getElementById("senhaModalAluno").style.display = "flex";\n' +
-            '        }\n' +
-            '        function fecharModalAluno() { document.getElementById("senhaModalAluno").style.display = "none"; }\n' +
-            '        function validarSenhaAluno() {\n' +
-            '            const senha = document.getElementById("senhaAlunoInput").value.trim();\n' +
-            '            const btn = document.getElementById("btnValidarAluno");\n' +
-            '            const input = document.getElementById("senhaAlunoInput");\n' +
-            '            if(senha === "2031") {\n' +
-            '                btn.style.background = "#00E5FF"; btn.style.color = "#000"; btn.textContent = "LIBERADO ✓"; input.style.borderColor = "#00E5FF";\n' +
-            '                setTimeout(() => {\n' +
-            '                    document.getElementById("senhaModalAluno").style.display = "none";\n' +
-            '                    document.getElementById("telaLista").style.display = "none";\n' +
-            '                    document.getElementById("telaVideo").style.display = "block";\n' +
-            '                    document.getElementById("tituloEspacoVideo").textContent = "Espaço de " + alunoSelecionado;\n' +
-            '                    document.getElementById("iframeVideoAtivo").src = embedUrl;\n' +
-            '                }, 800);\n' +
-            '            } else {\n' +
-            '                input.style.borderColor = "#EF4444"; btn.style.background = "#EF4444"; btn.style.color = "#fff"; btn.textContent = "SENHA INCORRETA ✗";\n' +
-            '                setTimeout(() => { btn.style.background = "#3B82F6"; btn.textContent = "ENTRAR NA AULA"; input.style.borderColor = "#2A3441"; }, 2000);\n' +
-            '            }\n' +
-            '        }\n' +
-            '        function voltarParaLista() {\n' +
-            '            document.getElementById("telaVideo").style.display = "none";\n' +
-            '            document.getElementById("telaLista").style.display = "block";\n' +
-            '            document.getElementById("iframeVideoAtivo").src = "";\n' +
-            '        }\n' +
-            '    </scr' + 'ipt>\n' +
-            '</body>\n' +
-            '</html>';
-            
-            janela.document.open();
-            janela.document.write(pageCode);
-            janela.document.close();
         }
 
-        btnSubmit.addEventListener('click', () => {
-            const pw = modalInput.value.trim().toLowerCase(); 
-            function erro() {
-                modalInput.style.borderColor = '#EF4444';
-                btnSubmit.style.background = '#EF4444';
-                btnSubmit.style.color = '#fff';
-                btnSubmit.textContent = 'SENHA INCORRETA ✗';
-                setTimeout(() => { btnSubmit.style.background = 'var(--accent-secondary)'; btnSubmit.style.color = '#ffffff'; btnSubmit.textContent = 'ENTRAR'; modalInput.style.borderColor = 'var(--border-color)'; }, 2000);
-            }
-            if (currentType === 'ebook' && pw === 'ia2031') {
-                modalInput.style.borderColor = 'var(--accent-primary)'; btnSubmit.style.background = 'var(--accent-primary)'; btnSubmit.style.color = '#000'; btnSubmit.textContent = 'ACESSO LIBERADO ✓';
-                setTimeout(() => { window.open('https://www.mediafire.com/file/4z0cbvz582s3kzi/O_Manual_Pericial_da_IA_Versao_Final_UNIFICADA.pdf_20260426_124121_0000+(2).pdf/file', '_blank'); closeModalFunc(); }, 1200);
-            } else if (currentType === 'gerador' && pw === 'matrix') {
-                modalInput.style.borderColor = 'var(--accent-primary)'; btnSubmit.style.background = 'var(--accent-primary)'; btnSubmit.style.color = '#000'; btnSubmit.textContent = 'ACESSO LIBERADO ✓';
-                setTimeout(() => { window.open('https://iadesignerweb.github.io/imagem-gerador/', '_blank'); closeModalFunc(); }, 1200);
-            } else if ((currentType === 'curso' || currentType === 'mentoria') && pw === '2031') {
-                modalInput.style.borderColor = 'var(--accent-primary)'; btnSubmit.style.background = 'var(--accent-primary)'; btnSubmit.style.color = '#000'; btnSubmit.textContent = 'ACESSO LIBERADO ✓';
-                setTimeout(() => { abrirPlataforma(currentTitle); closeModalFunc(); }, 1200);
-            } else { erro(); }
-        });
+        // Lógica para Modal Premium (Funil de Vendas)
+        let promptInteresse = "";
 
-        function abrirModalSolar() { document.getElementById('modalSolar').classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function fecharModalSolar() { document.getElementById('modalSolar').classList.remove('active'); document.body.style.overflow = 'auto'; }
-        function abrirModalAnatomia() { document.getElementById('modalAnatomia').classList.add('active'); document.body.style.overflow = 'hidden'; }
-        function fecharModalAnatomia() { document.getElementById('modalAnatomia').classList.remove('active'); document.body.style.overflow = 'auto'; }
+        function abrirModalPremium(nomeDoPrompt) {
+            promptInteresse = nomeDoPrompt;
+            document.getElementById('modal-premium').style.display = 'flex';
+        }
+
+        function fecharModalPremium() {
+            document.getElementById('modal-premium').style.display = 'none';
+        }
+
+        document.getElementById('btn-comprar').onclick = function() {
+            const numeroWhatsApp = "5587996029765"; 
+            const mensagem = `Olá, Plínio Studio! Quero adquirir o pacote completo de prompts por R$ 49,90. Fiquei muito interessado através do card: *${promptInteresse}*.`;
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+            fecharModalPremium();
+        };
+
+        // Fechar modais ao clicar no fundo escuro
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = "none";
+            }
+        }
     </script>
 </body>
 </html>
